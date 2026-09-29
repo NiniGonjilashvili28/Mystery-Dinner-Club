@@ -1,0 +1,18 @@
+# Python virtual environment (each person creates their own)
+.venv/
+
+# Python's automatic cache files
+__pycache__/
+*.pyc
+
+# The SQLite database (created automatically when the app runs)
+data/
+*.db
+
+# Test and coverage reports (generated, not written by you)
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Mac system file
+.DS_Store
