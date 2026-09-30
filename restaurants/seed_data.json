@@ -1,0 +1,2152 @@
+[
+  {
+    "name": "The Gilded Table",
+    "city": "Tbilisi",
+    "theme": "luxury",
+    "min_budget": 80,
+    "address": "10 Chavchavadze Avenue, Tbilisi",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Maison Lumiere",
+    "city": "Tbilisi",
+    "theme": "luxury",
+    "min_budget": 100,
+    "address": "23 Kote Afkhazi Street, Tbilisi",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Tasting menu of 5 courses",
+        "price": 95.0
+      },
+      {
+        "name": "Truffle risotto",
+        "price": 38.0
+      },
+      {
+        "name": "Chocolate souffle",
+        "price": 18.0
+      }
+    ]
+  },
+  {
+    "name": "Velvet Room",
+    "city": "Tbilisi",
+    "theme": "luxury",
+    "min_budget": 120,
+    "address": "36 Rustaveli Avenue, Tbilisi",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Little Bean",
+    "city": "Tbilisi",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "10 Rustaveli Avenue, Tbilisi",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Morning Pages Cafe",
+    "city": "Tbilisi",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "23 Aghmashenebeli Avenue, Tbilisi",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Brunch plate",
+        "price": 16.0
+      },
+      {
+        "name": "Avocado toast",
+        "price": 11.0
+      },
+      {
+        "name": "Flat white and croissant",
+        "price": 7.5
+      }
+    ]
+  },
+  {
+    "name": "Corner Cup",
+    "city": "Tbilisi",
+    "theme": "cafe",
+    "min_budget": 35,
+    "address": "36 Chavchavadze Avenue, Tbilisi",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Cork & Vine",
+    "city": "Tbilisi",
+    "theme": "wine_bar",
+    "min_budget": 45,
+    "address": "10 Rustaveli Avenue, Tbilisi",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Cellar Door",
+    "city": "Tbilisi",
+    "theme": "wine_bar",
+    "min_budget": 50,
+    "address": "23 Aghmashenebeli Avenue, Tbilisi",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Wine flight of 3 glasses",
+        "price": 28.0
+      },
+      {
+        "name": "Cheese board",
+        "price": 19.0
+      },
+      {
+        "name": "Charcuterie plate",
+        "price": 21.0
+      }
+    ]
+  },
+  {
+    "name": "Red Thread Wine Bar",
+    "city": "Tbilisi",
+    "theme": "wine_bar",
+    "min_budget": 60,
+    "address": "36 Chavchavadze Avenue, Tbilisi",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Night Owl Bar",
+    "city": "Tbilisi",
+    "theme": "bar",
+    "min_budget": 30,
+    "address": "10 Kote Afkhazi Street, Tbilisi",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Copper Tap",
+    "city": "Tbilisi",
+    "theme": "bar",
+    "min_budget": 35,
+    "address": "23 Rustaveli Avenue, Tbilisi",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Signature cocktail",
+        "price": 12.0
+      },
+      {
+        "name": "Sliders trio",
+        "price": 15.0
+      },
+      {
+        "name": "Loaded fries",
+        "price": 9.0
+      }
+    ]
+  },
+  {
+    "name": "The Hidden Bar",
+    "city": "Tbilisi",
+    "theme": "bar",
+    "min_budget": 40,
+    "address": "36 Aghmashenebeli Avenue, Tbilisi",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Sugar Cloud",
+    "city": "Tbilisi",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "10 Kote Afkhazi Street, Tbilisi",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Sweet Spoon",
+    "city": "Tbilisi",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "23 Rustaveli Avenue, Tbilisi",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Dessert tasting box",
+        "price": 17.0
+      },
+      {
+        "name": "Hot chocolate",
+        "price": 6.5
+      },
+      {
+        "name": "Seasonal cheesecake",
+        "price": 8.0
+      }
+    ]
+  },
+  {
+    "name": "Honey & Crumb",
+    "city": "Tbilisi",
+    "theme": "dessert",
+    "min_budget": 35,
+    "address": "36 Aghmashenebeli Avenue, Tbilisi",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Silver Spoon House",
+    "city": "Madrid",
+    "theme": "luxury",
+    "min_budget": 80,
+    "address": "17 Calle de Serrano, Madrid",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Tasting menu of 5 courses",
+        "price": 95.0
+      },
+      {
+        "name": "Truffle risotto",
+        "price": 38.0
+      },
+      {
+        "name": "Chocolate souffle",
+        "price": 18.0
+      }
+    ]
+  },
+  {
+    "name": "The Grand Salon",
+    "city": "Madrid",
+    "theme": "luxury",
+    "min_budget": 100,
+    "address": "30 Calle de Fuencarral, Madrid",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "Opal Dining Room",
+    "city": "Madrid",
+    "theme": "luxury",
+    "min_budget": 120,
+    "address": "43 Calle Mayor, Madrid",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Daily Grind",
+    "city": "Madrid",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "17 Calle Mayor, Madrid",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Brunch plate",
+        "price": 16.0
+      },
+      {
+        "name": "Avocado toast",
+        "price": 11.0
+      },
+      {
+        "name": "Flat white and croissant",
+        "price": 7.5
+      }
+    ]
+  },
+  {
+    "name": "Paper Plane Cafe",
+    "city": "Madrid",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "30 Gran Via, Madrid",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "Sunday Roasters",
+    "city": "Madrid",
+    "theme": "cafe",
+    "min_budget": 35,
+    "address": "43 Calle de Serrano, Madrid",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Grape Expectations",
+    "city": "Madrid",
+    "theme": "wine_bar",
+    "min_budget": 45,
+    "address": "17 Calle Mayor, Madrid",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Wine flight of 3 glasses",
+        "price": 28.0
+      },
+      {
+        "name": "Cheese board",
+        "price": 19.0
+      },
+      {
+        "name": "Charcuterie plate",
+        "price": 21.0
+      }
+    ]
+  },
+  {
+    "name": "Vino Nook",
+    "city": "Madrid",
+    "theme": "wine_bar",
+    "min_budget": 50,
+    "address": "30 Gran Via, Madrid",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "The Barrel Room",
+    "city": "Madrid",
+    "theme": "wine_bar",
+    "min_budget": 60,
+    "address": "43 Calle de Serrano, Madrid",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Neon Fox",
+    "city": "Madrid",
+    "theme": "bar",
+    "min_budget": 30,
+    "address": "17 Calle de Fuencarral, Madrid",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Signature cocktail",
+        "price": 12.0
+      },
+      {
+        "name": "Sliders trio",
+        "price": 15.0
+      },
+      {
+        "name": "Loaded fries",
+        "price": 9.0
+      }
+    ]
+  },
+  {
+    "name": "The Last Stop",
+    "city": "Madrid",
+    "theme": "bar",
+    "min_budget": 35,
+    "address": "30 Calle Mayor, Madrid",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "Moonlight Lounge",
+    "city": "Madrid",
+    "theme": "bar",
+    "min_budget": 40,
+    "address": "43 Gran Via, Madrid",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Cake Studio",
+    "city": "Madrid",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "17 Calle de Fuencarral, Madrid",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Dessert tasting box",
+        "price": 17.0
+      },
+      {
+        "name": "Hot chocolate",
+        "price": 6.5
+      },
+      {
+        "name": "Seasonal cheesecake",
+        "price": 8.0
+      }
+    ]
+  },
+  {
+    "name": "Velvet Cocoa",
+    "city": "Madrid",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "30 Calle Mayor, Madrid",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "Butter & Bloom",
+    "city": "Madrid",
+    "theme": "dessert",
+    "min_budget": 35,
+    "address": "43 Gran Via, Madrid",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Crown Table",
+    "city": "Barcelona",
+    "theme": "luxury",
+    "min_budget": 80,
+    "address": "24 Carrer de Verdi, Barcelona",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "Ivory Hall",
+    "city": "Barcelona",
+    "theme": "luxury",
+    "min_budget": 100,
+    "address": "37 Carrer del Parlament, Barcelona",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Emerald Terrace",
+    "city": "Barcelona",
+    "theme": "luxury",
+    "min_budget": 120,
+    "address": "50 Passeig de Gracia, Barcelona",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Tasting menu of 5 courses",
+        "price": 95.0
+      },
+      {
+        "name": "Truffle risotto",
+        "price": 38.0
+      },
+      {
+        "name": "Chocolate souffle",
+        "price": 18.0
+      }
+    ]
+  },
+  {
+    "name": "Blue Door Cafe",
+    "city": "Barcelona",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "24 Passeig de Gracia, Barcelona",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "The Reading Room",
+    "city": "Barcelona",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "37 La Rambla, Barcelona",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Oat & Honey",
+    "city": "Barcelona",
+    "theme": "cafe",
+    "min_budget": 35,
+    "address": "50 Carrer de Verdi, Barcelona",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Brunch plate",
+        "price": 16.0
+      },
+      {
+        "name": "Avocado toast",
+        "price": 11.0
+      },
+      {
+        "name": "Flat white and croissant",
+        "price": 7.5
+      }
+    ]
+  },
+  {
+    "name": "Amber Glass",
+    "city": "Barcelona",
+    "theme": "wine_bar",
+    "min_budget": 45,
+    "address": "24 Passeig de Gracia, Barcelona",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "Old Vine Bar",
+    "city": "Barcelona",
+    "theme": "wine_bar",
+    "min_budget": 50,
+    "address": "37 La Rambla, Barcelona",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Decanter",
+    "city": "Barcelona",
+    "theme": "wine_bar",
+    "min_budget": 60,
+    "address": "50 Carrer de Verdi, Barcelona",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Wine flight of 3 glasses",
+        "price": 28.0
+      },
+      {
+        "name": "Cheese board",
+        "price": 19.0
+      },
+      {
+        "name": "Charcuterie plate",
+        "price": 21.0
+      }
+    ]
+  },
+  {
+    "name": "The Loose Screw",
+    "city": "Barcelona",
+    "theme": "bar",
+    "min_budget": 30,
+    "address": "24 Carrer del Parlament, Barcelona",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "Rooftop 21",
+    "city": "Barcelona",
+    "theme": "bar",
+    "min_budget": 35,
+    "address": "37 Passeig de Gracia, Barcelona",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Midnight Club",
+    "city": "Barcelona",
+    "theme": "bar",
+    "min_budget": 40,
+    "address": "50 La Rambla, Barcelona",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Signature cocktail",
+        "price": 12.0
+      },
+      {
+        "name": "Sliders trio",
+        "price": 15.0
+      },
+      {
+        "name": "Loaded fries",
+        "price": 9.0
+      }
+    ]
+  },
+  {
+    "name": "Meringue Moon",
+    "city": "Barcelona",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "24 Carrer del Parlament, Barcelona",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "The Sweet Tooth",
+    "city": "Barcelona",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "37 Passeig de Gracia, Barcelona",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Caramel Corner",
+    "city": "Barcelona",
+    "theme": "dessert",
+    "min_budget": 35,
+    "address": "50 La Rambla, Barcelona",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Dessert tasting box",
+        "price": 17.0
+      },
+      {
+        "name": "Hot chocolate",
+        "price": 6.5
+      },
+      {
+        "name": "Seasonal cheesecake",
+        "price": 8.0
+      }
+    ]
+  },
+  {
+    "name": "The Marble Kitchen",
+    "city": "Paris",
+    "theme": "luxury",
+    "min_budget": 80,
+    "address": "31 Boulevard Saint-Germain, Paris",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Sapphire Room",
+    "city": "Paris",
+    "theme": "luxury",
+    "min_budget": 100,
+    "address": "44 Rue des Martyrs, Paris",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Tasting menu of 5 courses",
+        "price": 95.0
+      },
+      {
+        "name": "Truffle risotto",
+        "price": 38.0
+      },
+      {
+        "name": "Chocolate souffle",
+        "price": 18.0
+      }
+    ]
+  },
+  {
+    "name": "Golden Hour Dining",
+    "city": "Paris",
+    "theme": "luxury",
+    "min_budget": 120,
+    "address": "57 Rue de Rivoli, Paris",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Window Seat Cafe",
+    "city": "Paris",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "31 Rue de Rivoli, Paris",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Brew Lab",
+    "city": "Paris",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "44 Rue Oberkampf, Paris",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Brunch plate",
+        "price": 16.0
+      },
+      {
+        "name": "Avocado toast",
+        "price": 11.0
+      },
+      {
+        "name": "Flat white and croissant",
+        "price": 7.5
+      }
+    ]
+  },
+  {
+    "name": "The Green Mug",
+    "city": "Paris",
+    "theme": "cafe",
+    "min_budget": 35,
+    "address": "57 Boulevard Saint-Germain, Paris",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Terroir",
+    "city": "Paris",
+    "theme": "wine_bar",
+    "min_budget": 45,
+    "address": "31 Rue de Rivoli, Paris",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Qvevri House",
+    "city": "Paris",
+    "theme": "wine_bar",
+    "min_budget": 50,
+    "address": "44 Rue Oberkampf, Paris",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Wine flight of 3 glasses",
+        "price": 28.0
+      },
+      {
+        "name": "Cheese board",
+        "price": 19.0
+      },
+      {
+        "name": "Charcuterie plate",
+        "price": 21.0
+      }
+    ]
+  },
+  {
+    "name": "Rose & Oak",
+    "city": "Paris",
+    "theme": "wine_bar",
+    "min_budget": 60,
+    "address": "57 Boulevard Saint-Germain, Paris",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Bitter & Twisted",
+    "city": "Paris",
+    "theme": "bar",
+    "min_budget": 30,
+    "address": "31 Rue des Martyrs, Paris",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Local",
+    "city": "Paris",
+    "theme": "bar",
+    "min_budget": 35,
+    "address": "44 Rue de Rivoli, Paris",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Signature cocktail",
+        "price": 12.0
+      },
+      {
+        "name": "Sliders trio",
+        "price": 15.0
+      },
+      {
+        "name": "Loaded fries",
+        "price": 9.0
+      }
+    ]
+  },
+  {
+    "name": "Blue Hour Bar",
+    "city": "Paris",
+    "theme": "bar",
+    "min_budget": 40,
+    "address": "57 Rue Oberkampf, Paris",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Little Macaron",
+    "city": "Paris",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "31 Rue des Martyrs, Paris",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Churro Club",
+    "city": "Paris",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "44 Rue de Rivoli, Paris",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Dessert tasting box",
+        "price": 17.0
+      },
+      {
+        "name": "Hot chocolate",
+        "price": 6.5
+      },
+      {
+        "name": "Seasonal cheesecake",
+        "price": 8.0
+      }
+    ]
+  },
+  {
+    "name": "Frost & Flake",
+    "city": "Paris",
+    "theme": "dessert",
+    "min_budget": 35,
+    "address": "57 Rue Oberkampf, Paris",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "The Gilded Table",
+    "city": "London",
+    "theme": "luxury",
+    "min_budget": 80,
+    "address": "38 Marylebone High Street, London",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Tasting menu of 5 courses",
+        "price": 95.0
+      },
+      {
+        "name": "Truffle risotto",
+        "price": 38.0
+      },
+      {
+        "name": "Chocolate souffle",
+        "price": 18.0
+      }
+    ]
+  },
+  {
+    "name": "Maison Lumiere",
+    "city": "London",
+    "theme": "luxury",
+    "min_budget": 100,
+    "address": "51 Brick Lane, London",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "Velvet Room",
+    "city": "London",
+    "theme": "luxury",
+    "min_budget": 120,
+    "address": "64 Carnaby Street, London",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Little Bean",
+    "city": "London",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "38 Carnaby Street, London",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Brunch plate",
+        "price": 16.0
+      },
+      {
+        "name": "Avocado toast",
+        "price": 11.0
+      },
+      {
+        "name": "Flat white and croissant",
+        "price": 7.5
+      }
+    ]
+  },
+  {
+    "name": "Morning Pages Cafe",
+    "city": "London",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "51 Upper Street, London",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "Corner Cup",
+    "city": "London",
+    "theme": "cafe",
+    "min_budget": 35,
+    "address": "64 Marylebone High Street, London",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Cork & Vine",
+    "city": "London",
+    "theme": "wine_bar",
+    "min_budget": 45,
+    "address": "38 Carnaby Street, London",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Wine flight of 3 glasses",
+        "price": 28.0
+      },
+      {
+        "name": "Cheese board",
+        "price": 19.0
+      },
+      {
+        "name": "Charcuterie plate",
+        "price": 21.0
+      }
+    ]
+  },
+  {
+    "name": "The Cellar Door",
+    "city": "London",
+    "theme": "wine_bar",
+    "min_budget": 50,
+    "address": "51 Upper Street, London",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "Red Thread Wine Bar",
+    "city": "London",
+    "theme": "wine_bar",
+    "min_budget": 60,
+    "address": "64 Marylebone High Street, London",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Night Owl Bar",
+    "city": "London",
+    "theme": "bar",
+    "min_budget": 30,
+    "address": "38 Brick Lane, London",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Signature cocktail",
+        "price": 12.0
+      },
+      {
+        "name": "Sliders trio",
+        "price": 15.0
+      },
+      {
+        "name": "Loaded fries",
+        "price": 9.0
+      }
+    ]
+  },
+  {
+    "name": "Copper Tap",
+    "city": "London",
+    "theme": "bar",
+    "min_budget": 35,
+    "address": "51 Carnaby Street, London",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "The Hidden Bar",
+    "city": "London",
+    "theme": "bar",
+    "min_budget": 40,
+    "address": "64 Upper Street, London",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Sugar Cloud",
+    "city": "London",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "38 Brick Lane, London",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Dessert tasting box",
+        "price": 17.0
+      },
+      {
+        "name": "Hot chocolate",
+        "price": 6.5
+      },
+      {
+        "name": "Seasonal cheesecake",
+        "price": 8.0
+      }
+    ]
+  },
+  {
+    "name": "Sweet Spoon",
+    "city": "London",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "51 Carnaby Street, London",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "Honey & Crumb",
+    "city": "London",
+    "theme": "dessert",
+    "min_budget": 35,
+    "address": "64 Upper Street, London",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Silver Spoon House",
+    "city": "Rome",
+    "theme": "luxury",
+    "min_budget": 80,
+    "address": "45 Via dei Coronari, Rome",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "The Grand Salon",
+    "city": "Rome",
+    "theme": "luxury",
+    "min_budget": 100,
+    "address": "58 Via Giulia, Rome",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Opal Dining Room",
+    "city": "Rome",
+    "theme": "luxury",
+    "min_budget": 120,
+    "address": "71 Via del Corso, Rome",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Tasting menu of 5 courses",
+        "price": 95.0
+      },
+      {
+        "name": "Truffle risotto",
+        "price": 38.0
+      },
+      {
+        "name": "Chocolate souffle",
+        "price": 18.0
+      }
+    ]
+  },
+  {
+    "name": "The Daily Grind",
+    "city": "Rome",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "45 Via del Corso, Rome",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "Paper Plane Cafe",
+    "city": "Rome",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "58 Via Margutta, Rome",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Sunday Roasters",
+    "city": "Rome",
+    "theme": "cafe",
+    "min_budget": 35,
+    "address": "71 Via dei Coronari, Rome",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Brunch plate",
+        "price": 16.0
+      },
+      {
+        "name": "Avocado toast",
+        "price": 11.0
+      },
+      {
+        "name": "Flat white and croissant",
+        "price": 7.5
+      }
+    ]
+  },
+  {
+    "name": "Grape Expectations",
+    "city": "Rome",
+    "theme": "wine_bar",
+    "min_budget": 45,
+    "address": "45 Via del Corso, Rome",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "Vino Nook",
+    "city": "Rome",
+    "theme": "wine_bar",
+    "min_budget": 50,
+    "address": "58 Via Margutta, Rome",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Barrel Room",
+    "city": "Rome",
+    "theme": "wine_bar",
+    "min_budget": 60,
+    "address": "71 Via dei Coronari, Rome",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Wine flight of 3 glasses",
+        "price": 28.0
+      },
+      {
+        "name": "Cheese board",
+        "price": 19.0
+      },
+      {
+        "name": "Charcuterie plate",
+        "price": 21.0
+      }
+    ]
+  },
+  {
+    "name": "Neon Fox",
+    "city": "Rome",
+    "theme": "bar",
+    "min_budget": 30,
+    "address": "45 Via Giulia, Rome",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "The Last Stop",
+    "city": "Rome",
+    "theme": "bar",
+    "min_budget": 35,
+    "address": "58 Via del Corso, Rome",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Moonlight Lounge",
+    "city": "Rome",
+    "theme": "bar",
+    "min_budget": 40,
+    "address": "71 Via Margutta, Rome",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Signature cocktail",
+        "price": 12.0
+      },
+      {
+        "name": "Sliders trio",
+        "price": 15.0
+      },
+      {
+        "name": "Loaded fries",
+        "price": 9.0
+      }
+    ]
+  },
+  {
+    "name": "The Cake Studio",
+    "city": "Rome",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "45 Via Giulia, Rome",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "Velvet Cocoa",
+    "city": "Rome",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "58 Via del Corso, Rome",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Butter & Bloom",
+    "city": "Rome",
+    "theme": "dessert",
+    "min_budget": 35,
+    "address": "71 Via Margutta, Rome",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Dessert tasting box",
+        "price": 17.0
+      },
+      {
+        "name": "Hot chocolate",
+        "price": 6.5
+      },
+      {
+        "name": "Seasonal cheesecake",
+        "price": 8.0
+      }
+    ]
+  },
+  {
+    "name": "The Crown Table",
+    "city": "Berlin",
+    "theme": "luxury",
+    "min_budget": 80,
+    "address": "52 Kurfuerstendamm, Berlin",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Ivory Hall",
+    "city": "Berlin",
+    "theme": "luxury",
+    "min_budget": 100,
+    "address": "65 Bergmannstrasse, Berlin",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Tasting menu of 5 courses",
+        "price": 95.0
+      },
+      {
+        "name": "Truffle risotto",
+        "price": 38.0
+      },
+      {
+        "name": "Chocolate souffle",
+        "price": 18.0
+      }
+    ]
+  },
+  {
+    "name": "Emerald Terrace",
+    "city": "Berlin",
+    "theme": "luxury",
+    "min_budget": 120,
+    "address": "78 Kastanienallee, Berlin",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Blue Door Cafe",
+    "city": "Berlin",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "52 Kastanienallee, Berlin",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Reading Room",
+    "city": "Berlin",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "65 Oranienstrasse, Berlin",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Brunch plate",
+        "price": 16.0
+      },
+      {
+        "name": "Avocado toast",
+        "price": 11.0
+      },
+      {
+        "name": "Flat white and croissant",
+        "price": 7.5
+      }
+    ]
+  },
+  {
+    "name": "Oat & Honey",
+    "city": "Berlin",
+    "theme": "cafe",
+    "min_budget": 35,
+    "address": "78 Kurfuerstendamm, Berlin",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Amber Glass",
+    "city": "Berlin",
+    "theme": "wine_bar",
+    "min_budget": 45,
+    "address": "52 Kastanienallee, Berlin",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Old Vine Bar",
+    "city": "Berlin",
+    "theme": "wine_bar",
+    "min_budget": 50,
+    "address": "65 Oranienstrasse, Berlin",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Wine flight of 3 glasses",
+        "price": 28.0
+      },
+      {
+        "name": "Cheese board",
+        "price": 19.0
+      },
+      {
+        "name": "Charcuterie plate",
+        "price": 21.0
+      }
+    ]
+  },
+  {
+    "name": "The Decanter",
+    "city": "Berlin",
+    "theme": "wine_bar",
+    "min_budget": 60,
+    "address": "78 Kurfuerstendamm, Berlin",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "The Loose Screw",
+    "city": "Berlin",
+    "theme": "bar",
+    "min_budget": 30,
+    "address": "52 Bergmannstrasse, Berlin",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Rooftop 21",
+    "city": "Berlin",
+    "theme": "bar",
+    "min_budget": 35,
+    "address": "65 Kastanienallee, Berlin",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Signature cocktail",
+        "price": 12.0
+      },
+      {
+        "name": "Sliders trio",
+        "price": 15.0
+      },
+      {
+        "name": "Loaded fries",
+        "price": 9.0
+      }
+    ]
+  },
+  {
+    "name": "Midnight Club",
+    "city": "Berlin",
+    "theme": "bar",
+    "min_budget": 40,
+    "address": "78 Oranienstrasse, Berlin",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Meringue Moon",
+    "city": "Berlin",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "52 Bergmannstrasse, Berlin",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Sweet Tooth",
+    "city": "Berlin",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "65 Kastanienallee, Berlin",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Dessert tasting box",
+        "price": 17.0
+      },
+      {
+        "name": "Hot chocolate",
+        "price": 6.5
+      },
+      {
+        "name": "Seasonal cheesecake",
+        "price": 8.0
+      }
+    ]
+  },
+  {
+    "name": "Caramel Corner",
+    "city": "Berlin",
+    "theme": "dessert",
+    "min_budget": 35,
+    "address": "78 Oranienstrasse, Berlin",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "The Marble Kitchen",
+    "city": "Amsterdam",
+    "theme": "luxury",
+    "min_budget": 80,
+    "address": "59 Haarlemmerstraat, Amsterdam",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Tasting menu of 5 courses",
+        "price": 95.0
+      },
+      {
+        "name": "Truffle risotto",
+        "price": 38.0
+      },
+      {
+        "name": "Chocolate souffle",
+        "price": 18.0
+      }
+    ]
+  },
+  {
+    "name": "Sapphire Room",
+    "city": "Amsterdam",
+    "theme": "luxury",
+    "min_budget": 100,
+    "address": "72 Ferdinand Bolstraat, Amsterdam",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "Golden Hour Dining",
+    "city": "Amsterdam",
+    "theme": "luxury",
+    "min_budget": 120,
+    "address": "85 Prinsengracht, Amsterdam",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Window Seat Cafe",
+    "city": "Amsterdam",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "59 Prinsengracht, Amsterdam",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Brunch plate",
+        "price": 16.0
+      },
+      {
+        "name": "Avocado toast",
+        "price": 11.0
+      },
+      {
+        "name": "Flat white and croissant",
+        "price": 7.5
+      }
+    ]
+  },
+  {
+    "name": "Brew Lab",
+    "city": "Amsterdam",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "72 Utrechtsestraat, Amsterdam",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "The Green Mug",
+    "city": "Amsterdam",
+    "theme": "cafe",
+    "min_budget": 35,
+    "address": "85 Haarlemmerstraat, Amsterdam",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Terroir",
+    "city": "Amsterdam",
+    "theme": "wine_bar",
+    "min_budget": 45,
+    "address": "59 Prinsengracht, Amsterdam",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Wine flight of 3 glasses",
+        "price": 28.0
+      },
+      {
+        "name": "Cheese board",
+        "price": 19.0
+      },
+      {
+        "name": "Charcuterie plate",
+        "price": 21.0
+      }
+    ]
+  },
+  {
+    "name": "Qvevri House",
+    "city": "Amsterdam",
+    "theme": "wine_bar",
+    "min_budget": 50,
+    "address": "72 Utrechtsestraat, Amsterdam",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "Rose & Oak",
+    "city": "Amsterdam",
+    "theme": "wine_bar",
+    "min_budget": 60,
+    "address": "85 Haarlemmerstraat, Amsterdam",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Bitter & Twisted",
+    "city": "Amsterdam",
+    "theme": "bar",
+    "min_budget": 30,
+    "address": "59 Ferdinand Bolstraat, Amsterdam",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Signature cocktail",
+        "price": 12.0
+      },
+      {
+        "name": "Sliders trio",
+        "price": 15.0
+      },
+      {
+        "name": "Loaded fries",
+        "price": 9.0
+      }
+    ]
+  },
+  {
+    "name": "The Local",
+    "city": "Amsterdam",
+    "theme": "bar",
+    "min_budget": 35,
+    "address": "72 Prinsengracht, Amsterdam",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "Blue Hour Bar",
+    "city": "Amsterdam",
+    "theme": "bar",
+    "min_budget": 40,
+    "address": "85 Utrechtsestraat, Amsterdam",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Little Macaron",
+    "city": "Amsterdam",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "59 Ferdinand Bolstraat, Amsterdam",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Dessert tasting box",
+        "price": 17.0
+      },
+      {
+        "name": "Hot chocolate",
+        "price": 6.5
+      },
+      {
+        "name": "Seasonal cheesecake",
+        "price": 8.0
+      }
+    ]
+  },
+  {
+    "name": "Churro Club",
+    "city": "Amsterdam",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "72 Prinsengracht, Amsterdam",
+    "offer_type": "discount",
+    "discount_percent": 15,
+    "menu": []
+  },
+  {
+    "name": "Frost & Flake",
+    "city": "Amsterdam",
+    "theme": "dessert",
+    "min_budget": 35,
+    "address": "85 Utrechtsestraat, Amsterdam",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Gilded Table",
+    "city": "Lisbon",
+    "theme": "luxury",
+    "min_budget": 80,
+    "address": "66 Avenida da Liberdade, Lisbon",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "Maison Lumiere",
+    "city": "Lisbon",
+    "theme": "luxury",
+    "min_budget": 100,
+    "address": "79 Rua de Sao Bento, Lisbon",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Velvet Room",
+    "city": "Lisbon",
+    "theme": "luxury",
+    "min_budget": 120,
+    "address": "92 Rua Augusta, Lisbon",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Tasting menu of 5 courses",
+        "price": 95.0
+      },
+      {
+        "name": "Truffle risotto",
+        "price": 38.0
+      },
+      {
+        "name": "Chocolate souffle",
+        "price": 18.0
+      }
+    ]
+  },
+  {
+    "name": "Little Bean",
+    "city": "Lisbon",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "66 Rua Augusta, Lisbon",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "Morning Pages Cafe",
+    "city": "Lisbon",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "79 Rua da Rosa, Lisbon",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Corner Cup",
+    "city": "Lisbon",
+    "theme": "cafe",
+    "min_budget": 35,
+    "address": "92 Avenida da Liberdade, Lisbon",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Brunch plate",
+        "price": 16.0
+      },
+      {
+        "name": "Avocado toast",
+        "price": 11.0
+      },
+      {
+        "name": "Flat white and croissant",
+        "price": 7.5
+      }
+    ]
+  },
+  {
+    "name": "Cork & Vine",
+    "city": "Lisbon",
+    "theme": "wine_bar",
+    "min_budget": 45,
+    "address": "66 Rua Augusta, Lisbon",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "The Cellar Door",
+    "city": "Lisbon",
+    "theme": "wine_bar",
+    "min_budget": 50,
+    "address": "79 Rua da Rosa, Lisbon",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Red Thread Wine Bar",
+    "city": "Lisbon",
+    "theme": "wine_bar",
+    "min_budget": 60,
+    "address": "92 Avenida da Liberdade, Lisbon",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Wine flight of 3 glasses",
+        "price": 28.0
+      },
+      {
+        "name": "Cheese board",
+        "price": 19.0
+      },
+      {
+        "name": "Charcuterie plate",
+        "price": 21.0
+      }
+    ]
+  },
+  {
+    "name": "Night Owl Bar",
+    "city": "Lisbon",
+    "theme": "bar",
+    "min_budget": 30,
+    "address": "66 Rua de Sao Bento, Lisbon",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "Copper Tap",
+    "city": "Lisbon",
+    "theme": "bar",
+    "min_budget": 35,
+    "address": "79 Rua Augusta, Lisbon",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Hidden Bar",
+    "city": "Lisbon",
+    "theme": "bar",
+    "min_budget": 40,
+    "address": "92 Rua da Rosa, Lisbon",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Signature cocktail",
+        "price": 12.0
+      },
+      {
+        "name": "Sliders trio",
+        "price": 15.0
+      },
+      {
+        "name": "Loaded fries",
+        "price": 9.0
+      }
+    ]
+  },
+  {
+    "name": "Sugar Cloud",
+    "city": "Lisbon",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "66 Rua de Sao Bento, Lisbon",
+    "offer_type": "discount",
+    "discount_percent": 10,
+    "menu": []
+  },
+  {
+    "name": "Sweet Spoon",
+    "city": "Lisbon",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "79 Rua Augusta, Lisbon",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Honey & Crumb",
+    "city": "Lisbon",
+    "theme": "dessert",
+    "min_budget": 35,
+    "address": "92 Rua da Rosa, Lisbon",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Dessert tasting box",
+        "price": 17.0
+      },
+      {
+        "name": "Hot chocolate",
+        "price": 6.5
+      },
+      {
+        "name": "Seasonal cheesecake",
+        "price": 8.0
+      }
+    ]
+  },
+  {
+    "name": "Silver Spoon House",
+    "city": "Vienna",
+    "theme": "luxury",
+    "min_budget": 80,
+    "address": "73 Neubaugasse, Vienna",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Grand Salon",
+    "city": "Vienna",
+    "theme": "luxury",
+    "min_budget": 100,
+    "address": "86 Josefstaedter Strasse, Vienna",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Tasting menu of 5 courses",
+        "price": 95.0
+      },
+      {
+        "name": "Truffle risotto",
+        "price": 38.0
+      },
+      {
+        "name": "Chocolate souffle",
+        "price": 18.0
+      }
+    ]
+  },
+  {
+    "name": "Opal Dining Room",
+    "city": "Vienna",
+    "theme": "luxury",
+    "min_budget": 120,
+    "address": "99 Mariahilfer Strasse, Vienna",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "The Daily Grind",
+    "city": "Vienna",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "73 Mariahilfer Strasse, Vienna",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Paper Plane Cafe",
+    "city": "Vienna",
+    "theme": "cafe",
+    "min_budget": 30,
+    "address": "86 Kaerntner Strasse, Vienna",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Brunch plate",
+        "price": 16.0
+      },
+      {
+        "name": "Avocado toast",
+        "price": 11.0
+      },
+      {
+        "name": "Flat white and croissant",
+        "price": 7.5
+      }
+    ]
+  },
+  {
+    "name": "Sunday Roasters",
+    "city": "Vienna",
+    "theme": "cafe",
+    "min_budget": 35,
+    "address": "99 Neubaugasse, Vienna",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Grape Expectations",
+    "city": "Vienna",
+    "theme": "wine_bar",
+    "min_budget": 45,
+    "address": "73 Mariahilfer Strasse, Vienna",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Vino Nook",
+    "city": "Vienna",
+    "theme": "wine_bar",
+    "min_budget": 50,
+    "address": "86 Kaerntner Strasse, Vienna",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Wine flight of 3 glasses",
+        "price": 28.0
+      },
+      {
+        "name": "Cheese board",
+        "price": 19.0
+      },
+      {
+        "name": "Charcuterie plate",
+        "price": 21.0
+      }
+    ]
+  },
+  {
+    "name": "The Barrel Room",
+    "city": "Vienna",
+    "theme": "wine_bar",
+    "min_budget": 60,
+    "address": "99 Neubaugasse, Vienna",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "Neon Fox",
+    "city": "Vienna",
+    "theme": "bar",
+    "min_budget": 30,
+    "address": "73 Josefstaedter Strasse, Vienna",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "The Last Stop",
+    "city": "Vienna",
+    "theme": "bar",
+    "min_budget": 35,
+    "address": "86 Mariahilfer Strasse, Vienna",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Signature cocktail",
+        "price": 12.0
+      },
+      {
+        "name": "Sliders trio",
+        "price": 15.0
+      },
+      {
+        "name": "Loaded fries",
+        "price": 9.0
+      }
+    ]
+  },
+  {
+    "name": "Moonlight Lounge",
+    "city": "Vienna",
+    "theme": "bar",
+    "min_budget": 40,
+    "address": "99 Kaerntner Strasse, Vienna",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  },
+  {
+    "name": "The Cake Studio",
+    "city": "Vienna",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "73 Josefstaedter Strasse, Vienna",
+    "offer_type": "regular",
+    "discount_percent": 0,
+    "menu": []
+  },
+  {
+    "name": "Velvet Cocoa",
+    "city": "Vienna",
+    "theme": "dessert",
+    "min_budget": 30,
+    "address": "86 Mariahilfer Strasse, Vienna",
+    "offer_type": "special",
+    "discount_percent": 0,
+    "menu": [
+      {
+        "name": "Dessert tasting box",
+        "price": 17.0
+      },
+      {
+        "name": "Hot chocolate",
+        "price": 6.5
+      },
+      {
+        "name": "Seasonal cheesecake",
+        "price": 8.0
+      }
+    ]
+  },
+  {
+    "name": "Butter & Bloom",
+    "city": "Vienna",
+    "theme": "dessert",
+    "min_budget": 35,
+    "address": "99 Kaerntner Strasse, Vienna",
+    "offer_type": "discount",
+    "discount_percent": 20,
+    "menu": []
+  }
+]
