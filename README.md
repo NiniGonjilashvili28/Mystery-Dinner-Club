@@ -8,7 +8,7 @@ revealed 3 hours before the dinner.
 
 1. **Restaurants**: partner restaurants, their themes, price levels and special menus,
    and the matching logic that picks a restaurant for a booking.
-2. **Bookings**: creating bookings (at least 7 days in advance), the 3-hour reveal,
+2. **Bookings**: creating bookings (at least 3 days in advance), the 3-hour reveal,
    ordering within budget, visit history, ratings, and the "only new places" option.
 
 ## Tech stack
