@@ -3,8 +3,10 @@ import os
 
 from flask import Flask
 
-#This is a common pattern called an app factory.(simple factory)
-def create_app():
+from db import close_db, get_db, init_db
+
+
+def create_app(test_config=None):
     app = Flask(__name__)
 
     # Folder where the SQLite database file will live.
@@ -13,9 +15,21 @@ def create_app():
     os.makedirs(data_dir, exist_ok=True)
     app.config["DATABASE"] = os.path.join(data_dir, "mystery_dinner.db")
 
+    # Tests pass their own settings here (for example, a temporary database).
+    if test_config is not None:
+        app.config.update(test_config)
+
+    # Create the tables and sample restaurants if they don't exist yet.
+    init_db(app.config["DATABASE"])
+    # Close the database connection at the end of every request.
+    app.teardown_appcontext(close_db)
+
     @app.route("/")
     def home():
-        return "Mystery Dinner Club is running!"
+        db = get_db()
+        restaurants = db.execute("SELECT COUNT(*) FROM restaurants").fetchone()[0]
+        cities = db.execute("SELECT COUNT(DISTINCT city) FROM restaurants").fetchone()[0]
+        return f"Mystery Dinner Club is running! {restaurants} partner restaurants in {cities} cities."
 
     return app
 
