@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Where can you dine?</h2>
+<p>The restaurants stay secret. Here is only how many partners each city has per theme.</p>
+<table>
+    <tr>
+        <th>City</th>
+        {% for theme in themes %}<th>{{ theme }}</th>{% endfor %}
+    </tr>
+    {% for city, theme_counts in counts|dictsort %}
+    <tr>
+        <td>{{ city }}</td>
+        {% for theme in themes %}<td>{{ theme_counts[theme] }}</td>{% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

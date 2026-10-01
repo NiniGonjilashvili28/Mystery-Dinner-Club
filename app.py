@@ -4,6 +4,7 @@ import os
 from flask import Flask
 
 from db import close_db, get_db, init_db
+from restaurants.routes import bp as restaurants_bp
 
 
 def create_app(test_config=None):
@@ -23,6 +24,9 @@ def create_app(test_config=None):
     init_db(app.config["DATABASE"])
     # Close the database connection at the end of every request.
     app.teardown_appcontext(close_db)
+
+    # Attach the pages of each domain.
+    app.register_blueprint(restaurants_bp)
 
     @app.route("/")
     def home():
