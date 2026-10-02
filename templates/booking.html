@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Your dinner in {{ booking.city }}</h2>
+<p>{{ booking.dinner_at.strftime("%A %d %B %Y at %H:%M") }} ·
+   theme: {{ booking.theme_choice|replace("_", " ") }} · budget: {{ booking.budget }}€</p>
+
+{% if not booking.revealed %}
+    <div class="secret">
+        🔒 Your restaurant is a secret.<br>
+        It will be revealed on {{ booking.reveal_at.strftime("%A %d %B at %H:%M") }}.
+    </div>
+{% else %}
+    <div class="card">
+        <h3>{{ booking.restaurant.name }}</h3>
+        <p>{{ booking.restaurant.address }}</p>
+        <p>Table {{ booking.table_number }} is reserved under your name.</p>
+        {% if booking.restaurant.offer_type == "discount" %}
+            <p>🎉 Mystery Dinner guests get {{ booking.restaurant.discount_percent }}% off here.</p>
+        {% elif booking.restaurant.offer_type == "special" %}
+            <p>This restaurant has a special menu for you:</p>
+            <ul>
+                {% for item in booking.restaurant.menu %}
+                    <li>{{ item.name }} · {{ "%.2f"|format(item.price) }}€</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You order from the restaurant's regular menu.</p>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% if booking.is_past %}
+    <h3>Your rating</h3>
+    {% if booking.rating %}
+        <p>{{ "★" * booking.rating }}{{ "☆" * (5 - booking.rating) }}
+           {% if booking.comment %}· "{{ booking.comment }}"{% endif %}</p>
+    {% else %}
+        <form method="post" action="{{ url_for('bookings.rate', booking_id=booking.id) }}">
+            <label>Stars
+                <select name="rating">
+                    {% for stars in [5, 4, 3, 2, 1] %}<option>{{ stars }}</option>{% endfor %}
+                </select>
+            </label>
+            <label>Comment (optional) <textarea name="comment" rows="3"></textarea></label>
+            <button type="submit">Save my rating</button>
+        </form>
+    {% endif %}
+{% endif %}
+{% endblock %}

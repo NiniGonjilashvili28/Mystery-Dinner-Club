@@ -6,15 +6,51 @@
     <title>Mystery Dinner Club</title>
     <style>
         body { font-family: Georgia, serif; max-width: 760px; margin: 40px auto; padding: 0 16px;
-               background: #1c1a24; color: #f3ead8; }
+               background: #1c1a24; color: #f3ead8; line-height: 1.5; }
         a { color: #e2b857; }
         h1 a { text-decoration: none; }
+        nav { margin-bottom: 24px; }
+        nav a, nav form { margin-right: 14px; display: inline; }
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid #4a4458; padding: 8px; text-align: left; }
+        label { display: block; margin-top: 14px; }
+        input, select, textarea { font: inherit; padding: 6px; width: 100%; max-width: 340px;
+                                  box-sizing: border-box; }
+        input[type=checkbox] { width: auto; }
+        button { font: inherit; margin-top: 16px; padding: 8px 18px; background: #e2b857;
+                 color: #1c1a24; border: 0; border-radius: 4px; cursor: pointer; }
+        nav button { margin: 0; padding: 0; background: none; color: #e2b857;
+                     text-decoration: underline; }
+        .errors { background: #5a2330; padding: 10px 16px; border-radius: 4px; }
+        .flash { background: #2f4a3a; padding: 10px 16px; border-radius: 4px; }
+        .secret { background: #2a2636; padding: 20px; border-radius: 6px; text-align: center;
+                  font-size: 1.2em; }
+        .card { background: #2a2636; padding: 16px 20px; border-radius: 6px; }
     </style>
 </head>
 <body>
-    <h1><a href="/">🍽️ Mystery Dinner Club</a></h1>
+    <h1><a href="{{ url_for('home') }}">🍽️ Mystery Dinner Club</a></h1>
+    <nav>
+        <a href="{{ url_for('restaurants.cities') }}">Cities</a>
+        {% if g.user %}
+            <a href="{{ url_for('bookings.new_booking') }}">Book a dinner</a>
+            <a href="{{ url_for('bookings.my_dinners') }}">My dinners</a>
+            <form method="post" action="{{ url_for('bookings.logout') }}">
+                <button type="submit">Log out ({{ g.user.name }})</button>
+            </form>
+        {% else %}
+            <a href="{{ url_for('bookings.signup') }}">Sign up</a>
+            <a href="{{ url_for('bookings.login') }}">Log in</a>
+        {% endif %}
+    </nav>
+    {% for message in get_flashed_messages() %}
+        <p class="flash">{{ message }}</p>
+    {% endfor %}
+    {% if errors %}
+        <ul class="errors">
+            {% for error in errors %}<li>{{ error }}</li>{% endfor %}
+        </ul>
+    {% endif %}
     {% block content %}{% endblock %}
 </body>
 </html>

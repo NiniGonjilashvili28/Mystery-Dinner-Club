@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Book a mystery dinner</h2>
+<form method="post">
+    <label>City
+        <select name="city">
+            {% for city in cities %}<option>{{ city }}</option>{% endfor %}
+        </select>
+    </label>
+    <label>Date and time (at least 3 days from now)
+        <input name="dinner_at" type="datetime-local" required>
+    </label>
+    <label>Theme
+        <select name="theme_choice">
+            {% for theme in themes %}<option value="{{ theme }}">{{ theme|replace("_", " ") }}</option>{% endfor %}
+        </select>
+    </label>
+    <label>Budget in € (minimum {{ min_budget }})
+        <input name="budget" type="number" min="{{ min_budget }}" value="50" required>
+    </label>
+    <label><input name="only_new_places" type="checkbox"> Only places I haven't visited yet</label>
+    <button type="submit">Book it</button>
+</form>
+<p>You pay at the restaurant. Your budget only helps us choose a place in your price range.</p>
+{% endblock %}

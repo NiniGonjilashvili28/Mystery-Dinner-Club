@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Upcoming dinners</h2>
+{% if upcoming %}
+    <table>
+        <tr><th>When</th><th>City</th><th>Theme</th><th></th></tr>
+        {% for booking in upcoming %}
+        <tr>
+            <td>{{ booking.dinner_at.strftime("%d %b %Y, %H:%M") }}</td>
+            <td>{{ booking.city }}</td>
+            <td>{{ booking.theme_choice|replace("_", " ") }}</td>
+            <td><a href="{{ url_for('bookings.booking_detail', booking_id=booking.id) }}">Open</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>Nothing booked yet. <a href="{{ url_for('bookings.new_booking') }}">Book a dinner</a></p>
+{% endif %}
+
+<h2>Places you've visited</h2>
+{% if past %}
+    <table>
+        <tr><th>When</th><th>Restaurant</th><th>City</th><th>Rating</th></tr>
+        {% for booking in past %}
+        <tr>
+            <td>{{ booking.dinner_at.strftime("%d %b %Y") }}</td>
+            <td>{{ booking.restaurant.name }}</td>
+            <td>{{ booking.city }}</td>
+            <td>
+                {% if booking.rating %}{{ "★" * booking.rating }}
+                {% else %}<a href="{{ url_for('bookings.booking_detail', booking_id=booking.id) }}">Rate it</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>Your visited places will appear here after your first dinner.</p>
+{% endif %}
+{% endblock %}

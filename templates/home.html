@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dinner is booked. Where? That's the mystery.</h2>
+<p>Choose a city, a date, a theme and a budget. We reserve a table at one of our partner
+   restaurants and keep it secret until 3 hours before your dinner.</p>
+{% if g.user %}
+    <p><a href="{{ url_for('bookings.new_booking') }}">Book a mystery dinner</a></p>
+{% else %}
+    <p><a href="{{ url_for('bookings.signup') }}">Sign up</a> to book your first mystery dinner.</p>
+{% endif %}
+{% endblock %}
