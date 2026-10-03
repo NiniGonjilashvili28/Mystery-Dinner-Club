@@ -5,44 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mystery Dinner Club</title>
     <style>
-        body { font-family: Georgia, serif; max-width: 760px; margin: 40px auto; padding: 0 16px;
-               background: #1c1a24; color: #f3ead8; line-height: 1.5; }
-        a { color: #e2b857; }
-        h1 a { text-decoration: none; }
-        nav { margin-bottom: 24px; }
-        nav a, nav form { margin-right: 14px; display: inline; }
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid #4a4458; padding: 8px; text-align: left; }
-        label { display: block; margin-top: 14px; }
-        input, select, textarea { font: inherit; padding: 6px; width: 100%; max-width: 340px;
-                                  box-sizing: border-box; }
-        input[type=checkbox] { width: auto; }
-        button { font: inherit; margin-top: 16px; padding: 8px 18px; background: #e2b857;
-                 color: #1c1a24; border: 0; border-radius: 4px; cursor: pointer; }
-        nav button { margin: 0; padding: 0; background: none; color: #e2b857;
-                     text-decoration: underline; }
-        .errors { background: #5a2330; padding: 10px 16px; border-radius: 4px; }
-        .flash { background: #2f4a3a; padding: 10px 16px; border-radius: 4px; }
-        .secret { background: #2a2636; padding: 20px; border-radius: 6px; text-align: center;
-                  font-size: 1.2em; }
-        .card { background: #2a2636; padding: 16px 20px; border-radius: 6px; }
+        :root {
+            --bg: #17141f;
+            --card: #231f2e;
+            --line: #3d3650;
+            --text: #f3ead8;
+            --muted: #b5aa98;
+            --gold: #e2b857;
+            --gold-dark: #c99c3a;
+        }
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 32px 16px 64px; background: var(--bg); color: var(--text);
+               font-family: Georgia, "Times New Roman", serif; line-height: 1.6; }
+        a { color: var(--gold); }
+
+        /* Header: logo and menu, centered */
+        header { text-align: center; margin-bottom: 28px; }
+        .logo { font-size: 2rem; margin: 0 0 14px; letter-spacing: 0.5px; }
+        .logo a { color: var(--text); text-decoration: none; }
+        nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+        nav a, nav button { font: inherit; font-size: 0.95rem; padding: 6px 14px; margin: 0;
+                            border: 1px solid var(--line); border-radius: 999px; background: none;
+                            color: var(--text); text-decoration: none; cursor: pointer; }
+        nav a:hover, nav button:hover { border-color: var(--gold); color: var(--gold); }
+        nav form { margin: 0; }
+
+        /* The page content sits in one centered card */
+        main { max-width: 640px; margin: 0 auto; padding: 32px; background: var(--card);
+               border: 1px solid var(--line); border-radius: 14px; }
+        h2 { margin-top: 0; font-size: 1.5rem; text-align: center; }
+        h3 { margin-bottom: 6px; }
+        main > p { text-align: center; }
+
+        /* Forms */
+        form { max-width: 380px; margin: 0 auto; }
+        label { display: block; margin-top: 16px; font-size: 0.95rem; color: var(--muted); }
+        input, select, textarea { display: block; width: 100%; margin-top: 6px; padding: 10px 12px;
+                                  font: inherit; color: var(--text); background: var(--bg);
+                                  border: 1px solid var(--line); border-radius: 8px; }
+        input:focus, select:focus, textarea:focus { outline: 2px solid var(--gold); border-color: transparent; }
+        input[type=checkbox] { display: inline; width: auto; margin: 0 6px 0 0; }
+
+        /* Buttons, and links that look like buttons */
+        button, .button { display: block; width: 100%; margin-top: 22px; padding: 12px 18px;
+                          font: inherit; font-weight: bold; text-align: center; text-decoration: none;
+                          color: var(--bg); background: var(--gold); border: 0; border-radius: 8px;
+                          cursor: pointer; }
+        button:hover, .button:hover { background: var(--gold-dark); }
+        .button { max-width: 300px; margin-left: auto; margin-right: auto; }
+
+        /* Tables */
+        table { border-collapse: collapse; width: 100%; margin-bottom: 24px; font-size: 0.95rem; }
+        th { color: var(--muted); font-weight: normal; }
+        th, td { border-bottom: 1px solid var(--line); padding: 10px 8px; text-align: left; }
+
+        /* Messages and special boxes */
+        .errors, .flash { max-width: 640px; margin: 0 auto 16px; padding: 12px 18px; border-radius: 10px; }
+        .errors { background: #4a1f2b; border: 1px solid #8a3a4c; list-style-position: inside; }
+        .flash { background: #20392c; border: 1px solid #3f7357; text-align: center; }
+        .secret { margin: 20px 0; padding: 28px 20px; text-align: center; font-size: 1.15rem;
+                  border: 1px dashed var(--gold); border-radius: 12px; }
+        .card { margin: 20px 0; padding: 18px 22px; background: var(--bg);
+                border: 1px solid var(--line); border-radius: 12px; }
+        .card h3 { margin-top: 0; color: var(--gold); font-size: 1.3rem; }
     </style>
 </head>
 <body>
-    <h1><a href="{{ url_for('home') }}">🍽️ Mystery Dinner Club</a></h1>
-    <nav>
-        <a href="{{ url_for('restaurants.cities') }}">Cities</a>
-        {% if g.user %}
-            <a href="{{ url_for('bookings.new_booking') }}">Book a dinner</a>
-            <a href="{{ url_for('bookings.my_dinners') }}">My dinners</a>
-            <form method="post" action="{{ url_for('bookings.logout') }}">
-                <button type="submit">Log out ({{ g.user.name }})</button>
-            </form>
-        {% else %}
-            <a href="{{ url_for('bookings.signup') }}">Sign up</a>
-            <a href="{{ url_for('bookings.login') }}">Log in</a>
-        {% endif %}
-    </nav>
+    <header>
+        <p class="logo"><a href="{{ url_for('home') }}">🍽️ Mystery Dinner Club</a></p>
+        <nav>
+            <a href="{{ url_for('restaurants.cities') }}">Cities</a>
+            {% if g.user %}
+                <a href="{{ url_for('bookings.new_booking') }}">Book a dinner</a>
+                <a href="{{ url_for('bookings.my_dinners') }}">My dinners</a>
+                <form method="post" action="{{ url_for('bookings.logout') }}">
+                    <button type="submit">Log out ({{ g.user.name }})</button>
+                </form>
+            {% else %}
+                <a href="{{ url_for('bookings.signup') }}">Sign up</a>
+                <a href="{{ url_for('bookings.login') }}">Log in</a>
+            {% endif %}
+        </nav>
+    </header>
     {% for message in get_flashed_messages() %}
         <p class="flash">{{ message }}</p>
     {% endfor %}
@@ -51,6 +95,8 @@
             {% for error in errors %}<li>{{ error }}</li>{% endfor %}
         </ul>
     {% endif %}
-    {% block content %}{% endblock %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
 </body>
 </html>
