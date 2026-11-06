@@ -16,3 +16,6 @@ htmlcov/
 
 # Mac system file
 .DS_Store
+
+# Local passwords for docker compose (never committed)
+.env
