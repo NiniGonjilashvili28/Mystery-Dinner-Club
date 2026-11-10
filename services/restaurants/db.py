@@ -22,7 +22,20 @@ def parse_database_url(url):
         "database": parts.path.lstrip("/"),
     }
 
+def error_number(error):
+    """The SQL Server error number inside a pymssql error, e.g. 18456 or 40613.
 
+    pymssql wraps the details as a pair (number, message) inside the error.
+    """
+    first = error.args[0] if error.args else None
+    if isinstance(first, tuple) and first:
+        first = first[0]
+    return first
+
+
+def is_login_failure(error):
+    """True if SQL Server refused the user name or password (error number 18456)."""
+    return error_number(error) == 18456
 def connect(url, attempts=6, first_wait=2.0):
     """Open a connection, retrying with growing waits.
 
@@ -35,7 +48,8 @@ def connect(url, attempts=6, first_wait=2.0):
         try:
             return pymssql.connect(login_timeout=15, timeout=30, **settings)
         except pymssql.OperationalError as error:
-            if attempt == attempts:
+            # A wrong user or password (error 18456) will not fix itself, so give up at once.
+            if attempt == attempts or is_login_failure(error):
                 raise
             log.warning("Database not reachable (attempt %d/%d): %s. Retrying in %.0fs",
                         attempt, attempts, str(error)[:120], wait)
