@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Mystery Dinner Club</title>
+  <script src="config.js"></script>
+</head>
+<body>
+  <h1>Mystery Dinner Club</h1>
+  <p>The new website is coming soon. Service status:</p>
+  <ul id="status"></ul>
+  <script>
+    // Temporary page: shows whether each service answers /health.
+    for (const [name, url] of Object.entries(window.CONFIG)) {
+      const item = document.createElement("li");
+      document.getElementById("status").appendChild(item);
+      fetch(url + "/health")
+        .then((response) => response.json())
+        .then((body) => { item.textContent = name + ": " + body.status + " (db " + body.db + ")"; })
+        .catch(() => { item.textContent = name + ": not reachable"; });
+    }
+  </script>
+</body>
+</html>
