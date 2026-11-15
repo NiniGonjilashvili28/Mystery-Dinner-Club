@@ -1,0 +1,8 @@
+# Never send these to Docker when building the image.
+.env
+tests/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
