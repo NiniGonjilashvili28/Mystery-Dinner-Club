@@ -23,9 +23,13 @@ UNAVAILABLE_MESSAGE = "We can't choose a restaurant right now. Please try again 
 
 
 def to_json(booking):
-    """A booking as JSON-friendly values (dates become text like 2026-11-20T20:00:00)."""
+    """A booking as JSON-friendly values (dates become text like 2026-11-20T20:00:00).
+
+    restaurant_id is left out: before the reveal it would let a guest look the restaurant
+    up and spoil the surprise, and after the reveal the restaurant's details are included anyway.
+    """
     return {key: (value.isoformat() if isinstance(value, datetime) else value)
-            for key, value in booking.items()}
+            for key, value in booking.items() if key != "restaurant_id"}
 
 
 def create_app(test_config=None, restaurants=None):

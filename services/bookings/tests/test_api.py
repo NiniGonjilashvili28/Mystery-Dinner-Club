@@ -41,6 +41,7 @@ def test_book_and_see_the_secret(client):
     assert response.status_code == 201
     booking = response.get_json()
     assert booking["revealed"] is False and booking["restaurant"] is None
+    assert "restaurant_id" not in booking  # nothing that could spoil the surprise
     assert client.get(f"/bookings/{booking['id']}", headers=headers).status_code == 200
     assert len(client.get("/bookings", headers=headers).get_json()["upcoming"]) == 1
 
