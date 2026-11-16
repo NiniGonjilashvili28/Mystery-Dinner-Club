@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mystery Dinner Club</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <p class="logo"><a href="index.html">🍽️ Mystery Dinner Club</a></p>
+        <nav id="nav"></nav>
+    </header>
+    <p class="flash" id="flash" hidden></p>
+    <ul class="errors" id="errors" hidden></ul>
+    <main>
+        <div id="booking"></div>
+        <div id="rating" hidden>
+            <h3>Your rating</h3>
+            <p id="rating-done" hidden></p>
+            <form id="form" hidden>
+                <label>Stars
+                    <select name="rating">
+                        <option>5</option><option>4</option><option>3</option><option>2</option><option>1</option>
+                    </select>
+                </label>
+                <label>Comment (optional) <textarea name="comment" rows="3"></textarea></label>
+                <button type="submit">Save my rating</button>
+            </form>
+        </div>
+    </main>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        requireLogin();
+        const bookingId = new URLSearchParams(window.location.search).get("id");
+
+        function restaurantHtml(b) {
+            if (!b.revealed) {
+                return "<div class=\"secret\">🔒 Your restaurant is a secret.<br>It will be revealed on " +
+                       formatDate(b.reveal_at) + ".</div>";
+            }
+            if (b.restaurant_unavailable || !b.restaurant) {
+                return "<div class=\"secret\">Your restaurant has been chosen, but we can't load its details " +
+                       "right now. Please refresh in a few minutes.</div>";
+            }
+            const r = b.restaurant;
+            let offer = "<p>You order from the restaurant's regular menu.</p>";
+            if (r.offer_type === "discount") {
+                offer = "<p>🎉 Mystery Dinner guests get " + r.discount_percent + "% off here.</p>";
+            } else if (r.offer_type === "special") {
+                offer = "<p>This restaurant has a special menu for you:</p><ul>" +
+                        r.menu.map((item) => "<li>" + escapeHtml(item.name) + " · " + item.price.toFixed(2) + "€</li>").join("") +
+                        "</ul>";
+            }
+            return "<div class=\"card\"><h3>" + escapeHtml(r.name) + "</h3><p>" + escapeHtml(r.address) +
+                   "</p><p>Table " + b.table_number + " is reserved under your name.</p>" + offer + "</div>";
+        }
+
+        async function loadBooking() {
+            const result = await callService("bookings", "/bookings/" + encodeURIComponent(bookingId));
+            if (result.status === 404) {
+                document.getElementById("booking").innerHTML =
+                    "<h2>We couldn't find that booking</h2><p><a href=\"dinners.html\">Back to my dinners</a></p>";
+                return;
+            }
+            if (!result.ok) return showErrors(errorMessages(result));
+            const b = result.body;
+            document.getElementById("booking").innerHTML =
+                "<h2>Your dinner in " + escapeHtml(b.city) + "</h2><p>" + formatDate(b.dinner_at) +
+                " · theme: " + escapeHtml(themeName(b.theme_choice)) + " · budget: " + b.budget + "€</p>" +
+                restaurantHtml(b);
+
+            // Ratings are only possible after the dinner, and only once.
+            if (b.is_past) {
+                document.getElementById("rating").hidden = false;
+                if (b.rating) {
+                    const done = document.getElementById("rating-done");
+                    done.textContent = stars(b.rating) + (b.comment ? " · \"" + b.comment + "\"" : "");
+                    done.hidden = false;
+                } else {
+                    document.getElementById("form").hidden = false;
+                }
+            }
+        }
+        loadBooking();
+
+        document.getElementById("form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const result = await callService("bookings", "/bookings/" + encodeURIComponent(bookingId) + "/rating", {
+                method: "POST",
+                body: { rating: parseInt(form.rating.value, 10), comment: form.comment.value },
+            });
+            if (!result.ok) return showErrors(errorMessages(result));
+            flashNextPage("Thanks for rating your dinner!");
+            window.location.reload();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mystery Dinner Club</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <p class="logo"><a href="index.html">🍽️ Mystery Dinner Club</a></p>
+        <nav id="nav"></nav>
+    </header>
+    <p class="flash" id="flash" hidden></p>
+    <ul class="errors" id="errors" hidden></ul>
+    <main>
+        <h2>Sign up</h2>
+        <form id="form">
+            <label>Name <input name="name" required></label>
+            <label>Email <input name="email" type="email" required></label>
+            <label>Password (at least 8 characters) <input name="password" type="password" required></label>
+            <button type="submit">Create my account</button>
+        </form>
+    </main>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.getElementById("form").addEventListener("submit", async (event) => {
+            event.preventDefault(); // stay on this page; we send the form ourselves
+            const form = event.target;
+            const result = await callService("bookings", "/signup", {
+                method: "POST",
+                body: { name: form.name.value, email: form.email.value, password: form.password.value },
+            });
+            if (!result.ok) return showErrors(errorMessages(result));
+            saveLogin(result.body);
+            flashNextPage("Welcome, " + result.body.user.name + "! Book your first mystery dinner.");
+            window.location.href = "book.html";
+        });
+    </script>
+</body>
+</html>

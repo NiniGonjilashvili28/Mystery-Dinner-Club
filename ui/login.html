@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mystery Dinner Club</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <p class="logo"><a href="index.html">🍽️ Mystery Dinner Club</a></p>
+        <nav id="nav"></nav>
+    </header>
+    <p class="flash" id="flash" hidden></p>
+    <ul class="errors" id="errors" hidden></ul>
+    <main>
+        <h2>Log in</h2>
+        <form id="form">
+            <label>Email <input name="email" type="email" required></label>
+            <label>Password <input name="password" type="password" required></label>
+            <button type="submit">Log in</button>
+        </form>
+    </main>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.getElementById("form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const result = await callService("bookings", "/login", {
+                method: "POST",
+                body: { email: form.email.value, password: form.password.value },
+            });
+            if (!result.ok) return showErrors(errorMessages(result));
+            saveLogin(result.body);
+            window.location.href = "dinners.html";
+        });
+    </script>
+</body>
+</html>

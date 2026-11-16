@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mystery Dinner Club</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <p class="logo"><a href="index.html">🍽️ Mystery Dinner Club</a></p>
+        <nav id="nav"></nav>
+    </header>
+    <p class="flash" id="flash" hidden></p>
+    <ul class="errors" id="errors" hidden></ul>
+    <main>
+        <h2>Upcoming dinners</h2>
+        <div id="upcoming"></div>
+        <h2>Places you've visited</h2>
+        <div id="past"></div>
+    </main>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        requireLogin();
+
+        async function loadDinners() {
+            const result = await callService("bookings", "/bookings");
+            if (!result.ok) return showErrors(errorMessages(result));
+            const { upcoming, past } = result.body;
+
+            document.getElementById("upcoming").innerHTML = upcoming.length === 0
+                ? "<p>Nothing booked yet. <a href=\"book.html\">Book a dinner</a></p>"
+                : "<table><tr><th>When</th><th>City</th><th>Theme</th><th></th></tr>" +
+                  upcoming.map((b) => "<tr><td>" + formatDate(b.dinner_at, false) + "</td><td>" +
+                      escapeHtml(b.city) + "</td><td>" + escapeHtml(themeName(b.theme_choice)) +
+                      "</td><td><a href=\"booking.html?id=" + b.id + "\">Open</a></td></tr>").join("") +
+                  "</table>";
+
+            document.getElementById("past").innerHTML = past.length === 0
+                ? "<p>Your visited places will appear here after your first dinner.</p>"
+                : "<table><tr><th>When</th><th>Restaurant</th><th>City</th><th>Rating</th></tr>" +
+                  past.map((b) => "<tr><td>" + formatDate(b.dinner_at, false) + "</td><td>" +
+                      (b.restaurant ? escapeHtml(b.restaurant.name) : "<em>details unavailable</em>") +
+                      "</td><td>" + escapeHtml(b.city) + "</td><td>" +
+                      (b.rating ? stars(b.rating) : "<a href=\"booking.html?id=" + b.id + "\">Rate it</a>") +
+                      "</td></tr>").join("") +
+                  "</table>";
+        }
+        loadDinners();
+    </script>
+</body>
+</html>

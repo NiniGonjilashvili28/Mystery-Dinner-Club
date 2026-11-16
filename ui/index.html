@@ -1,24 +1,33 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Mystery Dinner Club</title>
-  <script src="config.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mystery Dinner Club</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Mystery Dinner Club</h1>
-  <p>The new website is coming soon. Service status:</p>
-  <ul id="status"></ul>
-  <script>
-    // Temporary page: shows whether each service answers /health.
-    for (const [name, url] of Object.entries(window.CONFIG)) {
-      const item = document.createElement("li");
-      document.getElementById("status").appendChild(item);
-      fetch(url + "/health")
-        .then((response) => response.json())
-        .then((body) => { item.textContent = name + ": " + body.status + " (db " + body.db + ")"; })
-        .catch(() => { item.textContent = name + ": not reachable"; });
-    }
-  </script>
+    <header>
+        <p class="logo"><a href="index.html">🍽️ Mystery Dinner Club</a></p>
+        <nav id="nav"></nav>
+    </header>
+    <p class="flash" id="flash" hidden></p>
+    <ul class="errors" id="errors" hidden></ul>
+    <main>
+        <h2>Dinner is booked. Where? That's the mystery.</h2>
+        <p>Choose a city, a date, a theme and a budget. We reserve a table at one of our partner
+           restaurants and keep it secret until 3 hours before your dinner.</p>
+        <a class="button" id="start" href="signup.html">Sign up to book your first dinner</a>
+    </main>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Logged-in guests go straight to booking.
+        if (getToken()) {
+            const start = document.getElementById("start");
+            start.href = "book.html";
+            start.textContent = "Book a mystery dinner";
+        }
+    </script>
 </body>
 </html>
