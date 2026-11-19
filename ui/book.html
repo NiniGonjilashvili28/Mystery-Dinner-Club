@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mystery Dinner Club</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <p class="logo"><a href="index.html">🍽️ Mystery Dinner Club</a></p>
+        <nav id="nav"></nav>
+    </header>
+    <p class="flash" id="flash" hidden></p>
+    <ul class="errors" id="errors" hidden></ul>
+    <main>
+        <h2>Book a mystery dinner</h2>
+        <form id="form">
+            <label>City <select name="city" id="city"></select></label>
+            <label>Date and time (at least 3 days from now)
+                <input name="dinner_at" type="datetime-local" required>
+            </label>
+            <label>Theme <select name="theme_choice" id="theme"></select></label>
+            <label>Budget in € (minimum 30)
+                <input name="budget" type="number" min="30" value="50" required>
+            </label>
+            <label><input name="only_new_places" type="checkbox"> Only places I haven't visited yet</label>
+            <button type="submit" id="submit">Book it</button>
+        </form>
+        <p>You pay at the restaurant. Your budget only helps us choose a place in your price range.</p>
+    </main>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        requireLogin();
+
+        // Fill the city and theme lists from the Restaurants service.
+        async function loadChoices() {
+            const result = await callService("restaurants", "/cities");
+            if (!result.ok) {
+                showErrors(["We can't load the cities right now. Please try again in a few minutes."]);
+                document.getElementById("submit").disabled = true;
+                return;
+            }
+            document.getElementById("city").innerHTML = result.body.cities
+                .map((row) => "<option>" + escapeHtml(row.city) + "</option>").join("");
+            document.getElementById("theme").innerHTML = ["random"].concat(result.body.themes)
+                .map((t) => "<option value=\"" + t + "\">" + escapeHtml(themeName(t)) + "</option>").join("");
+        }
+        loadChoices();
+
+        document.getElementById("form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const button = document.getElementById("submit");
+            button.disabled = true;
+            const result = await callService("bookings", "/bookings", {
+                method: "POST",
+                body: {
+                    city: form.city.value,
+                    dinner_at: form.dinner_at.value,
+                    theme_choice: form.theme_choice.value,
+                    budget: parseInt(form.budget.value, 10),
+                    only_new_places: form.only_new_places.checked,
+                },
+            });
+            button.disabled = false;
+            if (!result.ok) return showErrors(errorMessages(result));
+            flashNextPage("Your mystery dinner is booked!");
+            window.location.href = "booking.html?id=" + result.body.id;
+        });
+    </script>
+</body>
+</html>

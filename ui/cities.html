@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mystery Dinner Club</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <p class="logo"><a href="index.html">🍽️ Mystery Dinner Club</a></p>
+        <nav id="nav"></nav>
+    </header>
+    <p class="flash" id="flash" hidden></p>
+    <ul class="errors" id="errors" hidden></ul>
+    <main>
+        <h2>Where can you dine?</h2>
+        <p>The restaurants stay secret. Here is only how many partners each city has per theme.</p>
+        <table id="table"></table>
+    </main>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // This page asks the Restaurants service directly.
+        async function loadCities() {
+            const result = await callService("restaurants", "/cities");
+            if (!result.ok) {
+                showErrors(["We can't show the cities right now. Please try again in a few minutes."]);
+                return;
+            }
+            const themes = result.body.themes;
+            let html = "<tr><th>City</th>" + themes.map((t) => "<th>" + escapeHtml(themeName(t)) + "</th>").join("") + "</tr>";
+            for (const row of result.body.cities) {
+                html += "<tr><td>" + escapeHtml(row.city) + "</td>" +
+                        themes.map((t) => "<td>" + row.theme_counts[t] + "</td>").join("") + "</tr>";
+            }
+            document.getElementById("table").innerHTML = html;
+        }
+        loadCities();
+    </script>
+</body>
+</html>

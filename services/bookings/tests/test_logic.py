@@ -1,7 +1,7 @@
 """Tests for the booking rules in bookings/logic.py."""
 from datetime import datetime, timedelta
 
-from bookings.logic import (
+from logic import (
     is_revealed,
     parse_dinner_time,
     rating_error,

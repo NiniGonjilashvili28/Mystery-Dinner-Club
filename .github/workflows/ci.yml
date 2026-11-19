@@ -1,0 +1,63 @@
+# CI: runs on every push and every pull request, for both services.
+name: CI
+
+on:
+  push:
+    branches-ignore: [main] # on main, cd.yml runs CI itself before deploying
+  pull_request:
+  workflow_call: # lets cd.yml run this whole workflow as its first step
+
+jobs:
+  service:
+    name: ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # if one service fails, still finish the other
+      matrix:
+        service: [restaurants, bookings]
+    defaults:
+      run:
+        working-directory: services/${{ matrix.service }}
+
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v5
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Start a throwaway SQL Server for the tests
+        run: |
+          # A new random password every run, so no password is stored in the repository.
+          SA_PASSWORD="Ci-$(openssl rand -hex 12)-Aa1"
+          echo "::add-mask::$SA_PASSWORD"
+          echo "SA_PASSWORD=$SA_PASSWORD" >> "$GITHUB_ENV"
+          docker run -d --name sql -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD="$SA_PASSWORD" \
+            -p 1433:1433 mcr.microsoft.com/mssql/server:2022-latest
+
+      - name: Install packages
+        run: pip install -r requirements-dev.txt
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Wait for SQL Server and create the test database
+        run: |
+          for attempt in $(seq 1 30); do
+            if docker exec sql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -C -Q "SELECT 1" -b > /dev/null 2>&1; then
+              break
+            fi
+            echo "SQL Server not ready yet (attempt $attempt)"; sleep 5
+          done
+          docker exec sql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -C -b \
+            -Q "CREATE DATABASE test_${{ matrix.service }}"
+
+      - name: Test with coverage (fails under 70%)
+        env:
+          TEST_DATABASE_URL: mssql://sa:${{ env.SA_PASSWORD }}@localhost:1433/test_${{ matrix.service }}
+        run: pytest --cov=. --cov-report=term-missing --cov-fail-under=70
+
+      - name: Build the Docker image
+        run: docker build -t mdc-${{ matrix.service }}:${{ github.sha }} .

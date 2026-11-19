@@ -1,7 +1,7 @@
 """Tests for the matching rules in restaurants/logic.py."""
 import random
 
-from restaurants.logic import available_themes, choose_theme, is_match, pick_restaurant
+from logic import available_themes, choose_theme, is_match, pick_restaurant
 
 # A small, hand-made list of restaurants, so we know the right answers.
 RESTAURANTS = [
