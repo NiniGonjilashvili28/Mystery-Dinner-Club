@@ -20,6 +20,9 @@ def conn():
     connection = db.connect(TEST_DATABASE_URL, attempts=3, first_wait=1)
     db.run_migrations(connection)
     seed_restaurants(connection)
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM reservations")      # every test starts with no reservations
+    connection.commit()
     yield connection
     connection.close()
 

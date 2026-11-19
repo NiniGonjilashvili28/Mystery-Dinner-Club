@@ -1,7 +1,9 @@
 """Tests for the database work in service.py, against a real SQL Server."""
+from datetime import datetime
+
 from conftest import needs_db
 
-from service import city_overview, find_restaurant_for_booking, get_restaurant_details
+from service import city_overview, find_restaurant_for_booking, get_restaurant_details, reserve_table
 
 pytestmark = needs_db
 
@@ -42,3 +44,24 @@ def test_details_include_the_special_menu(conn):
 
 def test_details_return_none_for_unknown_id(conn):
     assert get_restaurant_details(conn, 99999) is None
+
+
+DINNER = datetime(2026, 12, 5, 20, 0)
+
+
+def test_reserve_table_gives_each_guest_a_different_table(conn):
+    first, problem = reserve_table(conn, 1, DINNER)
+    second, _ = reserve_table(conn, 1, DINNER)
+    assert problem is None
+    assert first["table_number"] != second["table_number"]
+    assert first["reservation_id"] != second["reservation_id"]
+
+
+def test_reserve_table_unknown_restaurant(conn):
+    assert reserve_table(conn, 99999, DINNER) == (None, "not_found")
+
+
+def test_reserve_table_full_after_twenty_tables(conn):
+    for _ in range(20):
+        reserve_table(conn, 1, DINNER)
+    assert reserve_table(conn, 1, DINNER) == (None, "full")

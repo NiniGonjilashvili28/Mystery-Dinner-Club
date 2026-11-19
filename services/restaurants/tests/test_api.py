@@ -31,6 +31,18 @@ def test_match_rejects_a_bad_request(client):
     assert client.post("/matches", json={"city": "Madrid"}).status_code == 400
 
 
+def test_reservation_is_created(client, conn):
+    response = client.post("/reservations", json={"restaurant_id": 1, "dinner_at": "2026-12-05T20:00:00"})
+    assert response.status_code == 201
+    assert 1 <= response.get_json()["table_number"] <= 20
+
+
+def test_reservation_errors(client, conn):
+    assert client.post("/reservations", json={"restaurant_id": 99999,
+                                               "dinner_at": "2026-12-05T20:00:00"}).status_code == 404
+    assert client.post("/reservations", json={"restaurant_id": 1, "dinner_at": "soon"}).status_code == 400
+
+
 def test_restaurant_details_and_404(client):
     assert client.get("/restaurants/1").status_code == 200
     assert client.get("/restaurants/99999").status_code == 404

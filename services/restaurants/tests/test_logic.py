@@ -1,7 +1,7 @@
 """Tests for the matching rules in restaurants/logic.py."""
 import random
 
-from logic import available_themes, choose_theme, is_match, pick_restaurant
+from logic import available_themes, choose_table, choose_theme, is_match, pick_restaurant
 
 # A small, hand-made list of restaurants, so we know the right answers.
 RESTAURANTS = [
@@ -70,3 +70,12 @@ def test_pick_restaurant_none_when_budget_too_low_for_theme():
 
 def test_pick_restaurant_random_none_when_city_has_no_restaurants():
     assert pick_restaurant(RESTAURANTS, "Paris", "random", 50) is None
+
+
+def test_choose_table_never_picks_a_taken_table():
+    taken = list(range(1, 20))          # tables 1 to 19 are taken
+    assert choose_table(taken) == 20
+
+
+def test_choose_table_none_when_every_table_is_taken():
+    assert choose_table(list(range(1, 21))) is None
