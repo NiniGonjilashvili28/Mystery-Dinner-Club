@@ -3,14 +3,16 @@ name: CI
 
 on:
   push:
+    branches-ignore: [main] # on main, cd.yml runs CI itself before deploying
   pull_request:
+  workflow_call: # lets cd.yml run this whole workflow as its first step
 
 jobs:
   service:
     name: ${{ matrix.service }}
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false            # if one service fails, still finish the other
+      fail-fast: false # if one service fails, still finish the other
       matrix:
         service: [restaurants, bookings]
     defaults:
@@ -19,10 +21,10 @@ jobs:
 
     steps:
       - name: Get the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
