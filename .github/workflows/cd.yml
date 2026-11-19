@@ -1,0 +1,127 @@
+# CD: on every push to main, run CI, then push the images and deploy to Azure.
+name: CD
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  images:
+    name: push ${{ matrix.service }} image
+    needs: ci # only if CI passed on this same commit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # allowed to push to GHCR
+    strategy:
+      matrix:
+        service: [restaurants, bookings]
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v5
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push the image, tagged with the commit SHA
+        uses: docker/build-push-action@v6
+        with:
+          context: services/${{ matrix.service }}
+          push: true
+          provenance: false # without this, Azure can't pull the image
+          tags: ghcr.io/ninigonjilashvili28/mdc-${{ matrix.service }}:${{ github.sha }}
+
+  deploy:
+    needs: images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # lets azure/login get a GitHub token (OIDC)
+    env:
+      PREFIX: ${{ vars.PREFIX }}
+      RG: ${{ vars.RESOURCE_GROUP }}
+      UI_STORAGE: ${{ vars.UI_STORAGE }}
+      IMAGES: ghcr.io/ninigonjilashvili28/mdc
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v5
+
+      - name: Sign in to Azure as the pipeline's managed identity
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Find the addresses
+        run: |
+          UI_URL=$(az storage account show --name "$UI_STORAGE" --resource-group "$RG" --query primaryEndpoints.web -o tsv)
+          RESTAURANTS_URL=https://$(az containerapp show --name "$PREFIX-restaurants" --resource-group "$RG" --query properties.configuration.ingress.fqdn -o tsv)
+          BOOKINGS_URL=https://$(az containerapp show --name "$PREFIX-bookings" --resource-group "$RG" --query properties.configuration.ingress.fqdn -o tsv)
+          echo "UI_URL=${UI_URL%/}" >> "$GITHUB_ENV"
+          echo "RESTAURANTS_URL=$RESTAURANTS_URL" >> "$GITHUB_ENV"
+          echo "BOOKINGS_URL=$BOOKINGS_URL" >> "$GITHUB_ENV"
+
+      - name: Deploy Restaurants
+        env:
+          DB_PASSWORD: ${{ secrets.RESTAURANTS_DB_PASSWORD }}
+        run: |
+          az containerapp secret set --name "$PREFIX-restaurants" --resource-group "$RG" -o none \
+            --secrets "database-url=mssql://restaurants_user:${DB_PASSWORD}@${PREFIX}-sql.database.windows.net:1433/${PREFIX}-restaurants-db"
+          az containerapp update --name "$PREFIX-restaurants" --resource-group "$RG" -o none \
+            --image "$IMAGES-restaurants:$GITHUB_SHA" \
+            --set-env-vars "DATABASE_URL=secretref:database-url" "ALLOWED_ORIGIN=$UI_URL" "GIT_SHA=$GITHUB_SHA"
+
+      - name: Deploy Bookings
+        env:
+          DB_PASSWORD: ${{ secrets.BOOKINGS_DB_PASSWORD }}
+          SECRET_KEY: ${{ secrets.BOOKINGS_SECRET_KEY }}
+        run: |
+          az containerapp secret set --name "$PREFIX-bookings" --resource-group "$RG" -o none \
+            --secrets "database-url=mssql://bookings_user:${DB_PASSWORD}@${PREFIX}-sql.database.windows.net:1433/${PREFIX}-bookings-db" \
+                      "secret-key=${SECRET_KEY}"
+          az containerapp update --name "$PREFIX-bookings" --resource-group "$RG" -o none \
+            --image "$IMAGES-bookings:$GITHUB_SHA" \
+            --set-env-vars "DATABASE_URL=secretref:database-url" "SECRET_KEY=secretref:secret-key" \
+                           "RESTAURANTS_URL=$RESTAURANTS_URL" "RESTAURANTS_TIMEOUT_S=3" \
+                           "ALLOWED_ORIGIN=$UI_URL" "GIT_SHA=$GITHUB_SHA"
+
+      - name: Write ui/config.js and upload the website
+        run: |
+          cat > ui/config.js <<CONFIG
+          // Written by the CD pipeline: where the website finds the two services.
+          window.CONFIG = {
+            RESTAURANTS_URL: "$RESTAURANTS_URL",
+            BOOKINGS_URL: "$BOOKINGS_URL",
+          };
+          CONFIG
+          cat ui/config.js
+          az storage blob upload-batch --account-name "$UI_STORAGE" --auth-mode key \
+            --destination '$web' --source ui --overwrite -o none
+
+      - name: Check /health on both services (allows for a cold start)
+        timeout-minutes: 15
+        run: |
+          for url in "$RESTAURANTS_URL" "$BOOKINGS_URL"; do
+            for attempt in $(seq 1 20); do
+              status=$(curl -s -o /dev/null -w "%{http_code}" --max-time 60 "$url/health" || true)
+              echo "$url/health -> $status (attempt $attempt)"
+              if [ "$status" = "200" ]; then break; fi
+              if [ "$attempt" = "20" ]; then echo "::error::$url/health never returned 200"; exit 1; fi
+              sleep 15
+            done
+          done
+          echo "Website: $UI_URL"
