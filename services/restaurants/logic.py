@@ -50,3 +50,14 @@ def pick_restaurant(restaurants, city, theme_choice, budget, exclude_ids=(), rng
     if not candidates:
         return None
     return rng.choice(candidates)
+
+
+TABLES_PER_RESTAURANT = 20
+
+
+def choose_table(taken_tables, rng=random):
+    """A free table number (1 to 20) for one dinner time, or None if every table is taken."""
+    free = [number for number in range(1, TABLES_PER_RESTAURANT + 1) if number not in taken_tables]
+    if not free:
+        return None
+    return rng.choice(free)

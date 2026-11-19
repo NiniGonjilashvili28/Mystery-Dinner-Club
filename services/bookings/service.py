@@ -4,8 +4,6 @@ Anything about restaurants is asked from the Restaurants service through `restau
 a RestaurantsClient. If that service is down, bookings still load; only the restaurant
 details are missing, and creating a new booking is refused with a clear message.
 """
-import random
-
 from db import query
 from logic import (
     is_revealed,
@@ -22,6 +20,7 @@ NO_MATCH_MESSAGE = (
     "We couldn't find a restaurant for that city, theme and budget. "
     "Try another theme, a higher budget, or untick 'only new places'."
 )
+NO_TABLE_MESSAGE = "The restaurant we chose is fully booked at that time. Please try another time."
 
 
 def list_bookings(conn, user_id):
@@ -47,13 +46,17 @@ def create_booking(conn, restaurants, user_id, city, dinner_text, theme_choice, 
     if restaurant_id is None:
         return None, [NO_MATCH_MESSAGE]
 
+    table_number = restaurants.reserve_table(restaurant_id, dinner_at)
+    if table_number is None:
+        return None, [NO_TABLE_MESSAGE]
+
     cursor = conn.cursor()
     cursor.execute(
         "INSERT INTO bookings (user_id, restaurant_id, city, dinner_at, theme_choice, budget, "
         "table_number, only_new_places, created_at) OUTPUT INSERTED.id "
         "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
         (user_id, restaurant_id, city, dinner_at, theme_choice, budget,
-         random.randint(1, 20), bool(only_new_places), now),
+         table_number, bool(only_new_places), now),
     )
     booking_id = cursor.fetchone()[0]
     conn.commit()

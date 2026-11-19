@@ -1,6 +1,6 @@
 """Calls to the Restaurants service over HTTP: the seam between the two services.
 
-These three methods replace the three functions Bookings used to import from
+Three of these methods replace the three functions Bookings used to import from
 restaurants/service.py in Assignment 1. Every call has a timeout, and any network
 problem becomes a RestaurantsUnavailable error that the caller handles.
 """
@@ -39,6 +39,18 @@ class RestaurantsClient:
         if response.status_code == 404:
             return None
         return response.json()["restaurant_id"]
+
+    def reserve_table(self, restaurant_id, dinner_at):
+        """Ask the restaurant to reserve a table for this dinner time.
+
+        Returns the table number, or None if the restaurant is unknown or fully booked.
+        """
+        response = self._call("POST", "/reservations", json={
+            "restaurant_id": restaurant_id, "dinner_at": dinner_at.isoformat(),
+        })
+        if response.status_code in (404, 409):
+            return None
+        return response.json()["table_number"]
 
     def get_details(self, restaurant_id):
         """Name, address, offer and menu of one restaurant, or None if the id is unknown."""

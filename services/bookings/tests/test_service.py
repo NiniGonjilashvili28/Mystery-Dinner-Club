@@ -34,6 +34,15 @@ def test_create_booking_saves_it_with_the_matched_restaurant(conn, fake_restaura
     assert [b["id"] for b in saved] == [booking_id]
     assert saved[0]["dinner_at"] == DINNER
     assert saved[0]["restaurant_id"] == 1
+    assert fake_restaurants.reservations == [(1, DINNER)]   # Restaurants was asked for a table
+    assert saved[0]["table_number"] == 1                    # and its answer was saved
+
+
+def test_create_booking_when_the_restaurant_is_full_gives_a_message(conn, user_id):
+    booking_id, errors = book(conn, FakeRestaurants(full=True), user_id)
+    assert booking_id is None
+    assert "fully booked" in errors[0]
+    assert list_bookings(conn, user_id) == []
 
 
 def test_create_booking_too_soon_saves_nothing(conn, fake_restaurants, user_id):

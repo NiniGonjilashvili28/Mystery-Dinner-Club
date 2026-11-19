@@ -3,13 +3,14 @@ import logging
 import os
 import sys
 import time
+from datetime import datetime
 
 from flask import Flask, g, jsonify, request
 
 import db
 from logic import THEMES
 from seed import seed_restaurants
-from service import city_overview, find_restaurant_for_booking, get_restaurant_details
+from service import city_overview, find_restaurant_for_booking, get_restaurant_details, reserve_table
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO,
                     format="%(asctime)s %(levelname)s restaurants %(message)s")
@@ -94,6 +95,24 @@ def create_app(test_config=None):
         if restaurant_id is None:
             return jsonify(error="no_match"), 404
         return jsonify(restaurant_id=restaurant_id)
+
+    @app.post("/reservations")
+    def reserve():
+        body = request.get_json(silent=True) or {}
+        restaurant_id = body.get("restaurant_id")
+        try:
+            dinner_at = datetime.fromisoformat(body.get("dinner_at"))
+        except (TypeError, ValueError):
+            dinner_at = None
+        if not isinstance(restaurant_id, int) or dinner_at is None:
+            return jsonify(error="bad_request",
+                           message="Send restaurant_id (whole number) and dinner_at (date and time)."), 400
+        reservation, problem = reserve_table(get_conn(), restaurant_id, dinner_at)
+        if problem == "not_found":
+            return jsonify(error="not_found"), 404
+        if problem == "full":
+            return jsonify(error="full", message="Every table is taken at that time."), 409
+        return jsonify(reservation), 201
 
     @app.get("/restaurants/<int:restaurant_id>")
     def restaurant(restaurant_id):

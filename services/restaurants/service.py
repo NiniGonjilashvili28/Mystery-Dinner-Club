@@ -1,6 +1,8 @@
 """Database work of the Restaurants service (ported from restaurants/service.py to SQL Server)."""
+import random
+
 from db import query
-from logic import THEMES, pick_restaurant
+from logic import THEMES, choose_table, pick_restaurant
 
 
 def city_overview(conn):
@@ -31,3 +33,26 @@ def get_restaurant_details(conn, restaurant_id):
     menu = query(conn, "SELECT name, price FROM menu_items WHERE restaurant_id = %s ORDER BY id", (restaurant_id,))
     details["menu"] = [{"name": item["name"], "price": float(item["price"])} for item in menu]
     return details
+
+
+def reserve_table(conn, restaurant_id, dinner_at, rng=random):
+    """Reserve a free table at this restaurant for this dinner time.
+
+    Returns (reservation, problem): reservation is {"reservation_id", "table_number"},
+    and problem is None, "not_found" (unknown restaurant) or "full" (every table taken).
+    """
+    if not query(conn, "SELECT id FROM restaurants WHERE id = %s", (restaurant_id,)):
+        return None, "not_found"
+    rows = query(conn, "SELECT table_number FROM reservations WHERE restaurant_id = %s AND dinner_at = %s",
+                 (restaurant_id, dinner_at))
+    table_number = choose_table([row["table_number"] for row in rows], rng)
+    if table_number is None:
+        return None, "full"
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO reservations (restaurant_id, dinner_at, table_number) OUTPUT INSERTED.id VALUES (%s, %s, %s)",
+        (restaurant_id, dinner_at, table_number),
+    )
+    reservation_id = cursor.fetchone()[0]
+    conn.commit()
+    return {"reservation_id": reservation_id, "table_number": table_number}, None
