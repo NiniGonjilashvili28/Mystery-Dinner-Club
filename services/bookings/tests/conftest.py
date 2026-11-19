@@ -20,8 +20,10 @@ needs_db = pytest.mark.skipif(not TEST_DATABASE_URL, reason="TEST_DATABASE_URL i
 class FakeRestaurants:
     """Behaves like RestaurantsClient without any network. Madrid has bars 1, 2 and 3."""
 
-    def __init__(self, down=False):
+    def __init__(self, down=False, full=False):
         self.down = down
+        self.full = full
+        self.reservations = []
         self.restaurants = {
             1: {"id": 1, "name": "Copper Tap", "city": "Madrid", "theme": "bar", "min_budget": 30},
             2: {"id": 2, "name": "Night Owl Bar", "city": "Madrid", "theme": "bar", "min_budget": 35},
@@ -43,6 +45,13 @@ class FakeRestaurants:
                     and r["min_budget"] <= budget and r["id"] not in exclude_ids:
                 return r["id"]
         return None
+
+    def reserve_table(self, restaurant_id, dinner_at):
+        self._check()
+        if self.full:
+            return None
+        self.reservations.append((restaurant_id, dinner_at))
+        return len(self.reservations)          # table 1, then table 2, ...
 
     def get_details(self, restaurant_id):
         self._check()

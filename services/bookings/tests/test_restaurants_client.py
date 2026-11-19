@@ -1,4 +1,6 @@
 """Tests for the HTTP calls to the Restaurants service, with a fake network."""
+from datetime import datetime
+
 import pytest
 import requests
 
@@ -75,3 +77,15 @@ def test_a_server_error_becomes_restaurants_unavailable():
     client, _ = client_with(FakeResponse(503, {"status": "error"}))
     with pytest.raises(RestaurantsUnavailable):
         client.get_details(1)
+
+
+def test_reserve_table_sends_the_request_and_returns_the_table():
+    client, session = client_with(FakeResponse(201, {"reservation_id": 4, "table_number": 7}))
+    assert client.reserve_table(23, datetime(2026, 12, 5, 20, 0)) == 7
+    assert session.calls[0][:3] == ("POST", "http://restaurants:8000/reservations",
+                                    {"restaurant_id": 23, "dinner_at": "2026-12-05T20:00:00"})
+
+
+def test_reserve_table_returns_none_when_full():
+    client, _ = client_with(FakeResponse(409, {"error": "full"}))
+    assert client.reserve_table(23, datetime(2026, 12, 5, 20, 0)) is None
