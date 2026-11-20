@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=./system.schema.json
+# Mystery Dinner Club: every service, its settings, what it calls and where it runs on Azure.
+# CI checks this file against system.schema.json and the services' openapi.yaml files.
+
+student: ngonj.exstudents2026
+prefix: ngonj-exstudents2026
+public_url: https://ngonjexstudents2026ui.z1.web.core.windows.net
+
+ui:
+  path: ui
+  storage_account: ngonjexstudents2026ui
+  calls: [restaurants, bookings]
+
+azure:
+  resource_group: rg-ngonj-exstudents2026
+  container_apps_environment: ngonj-exstudents2026-env
+  sql_server: ngonj-exstudents2026-sql
+  registry: ghcr.io/ninigonjilashvili28
+
+services:
+  restaurants:
+    description: Partner restaurants by city and mood, secret matching, table reservations and the details shown after the reveal.
+    path: services/restaurants
+    openapi: services/restaurants/openapi.yaml
+    port_default: 8000
+    health: /health
+    migrations: services/restaurants/migrations
+    env:
+      PORT:
+        description: Port gunicorn listens on.
+        default: 8000
+      DATABASE_URL:
+        description: Connection to this service's own database, mssql://user:password@host:port/database.
+        secret: true
+      ALLOWED_ORIGIN:
+        description: The only website address allowed to call this service from a browser (CORS).
+        default: http://localhost:8080
+      GIT_SHA:
+        description: Commit the image was built from, shown by /health as the version.
+        default: dev
+    azure:
+      container_app: ngonj-exstudents2026-restaurants
+      sql_database: ngonj-exstudents2026-restaurants-db
+
+  bookings:
+    description: Guest accounts and login tokens, bookings with the 3-day and 30€ rules, the 3-hour reveal, history and ratings.
+    path: services/bookings
+    openapi: services/bookings/openapi.yaml
+    port_default: 8000
+    health: /health
+    migrations: services/bookings/migrations
+    env:
+      PORT:
+        description: Port gunicorn listens on.
+        default: 8000
+      DATABASE_URL:
+        description: Connection to this service's own database, mssql://user:password@host:port/database.
+        secret: true
+      SECRET_KEY:
+        description: Key that signs login tokens.
+        secret: true
+      RESTAURANTS_URL:
+        description: Base address of the Restaurants service.
+        default: http://restaurants:8000
+      RESTAURANTS_TIMEOUT_S:
+        description: Seconds to wait for the Restaurants service before giving up.
+        default: 3
+      ALLOWED_ORIGIN:
+        description: The only website address allowed to call this service from a browser (CORS).
+        default: http://localhost:8080
+      APP_TIMEZONE:
+        description: Time zone used for "now" in the 3-day and 3-hour rules.
+        default: Europe/Madrid
+      GIT_SHA:
+        description: Commit the image was built from, shown by /health as the version.
+        default: dev
+    calls:
+      - service: restaurants
+        url_env: RESTAURANTS_URL
+        endpoints:
+          - GET /cities
+          - POST /matches
+          - POST /reservations
+          - GET /restaurants/{restaurant_id}
+        timeout_s: 3
+        on_failure: >-
+          A new booking is refused with 503 and "We can't choose a restaurant right now. Please try again
+          in a few minutes." Existing bookings, history and ratings keep working; a revealed booking shows
+          "restaurant details unavailable" instead of the restaurant.
+    azure:
+      container_app: ngonj-exstudents2026-bookings
+      sql_database: ngonj-exstudents2026-bookings-db
