@@ -1,0 +1,184 @@
+openapi: 3.0.3
+info:
+  title: Mystery Dinner Club - Restaurants service
+  version: "1.0"
+  description: >-
+    Partner restaurants and their matching. The website calls GET /cities; the Bookings service
+    calls the other endpoints. Restaurant names are only ever returned by GET /restaurants/{restaurant_id},
+    which Bookings uses after the reveal.
+paths:
+  /health:
+    get:
+      summary: Whether the service can read and write its own database
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Health"}
+        "503":
+          description: The database cannot be reached
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Health"}
+  /cities:
+    get:
+      summary: Every city with how many partner restaurants it has per mood (no names)
+      responses:
+        "200":
+          description: Cities and themes
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [cities, themes]
+                properties:
+                  cities:
+                    type: array
+                    items:
+                      type: object
+                      required: [city, theme_counts]
+                      properties:
+                        city: {type: string, example: Madrid}
+                        theme_counts:
+                          type: object
+                          additionalProperties: {type: integer}
+                          example: {luxury: 3, cafe: 3, wine_bar: 3, bar: 3, dessert: 3}
+                  themes:
+                    type: array
+                    items: {$ref: "#/components/schemas/Theme"}
+  /matches:
+    post:
+      summary: Choose a secret restaurant for a booking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [city, theme_choice, budget, exclude_ids]
+              properties:
+                city: {type: string, example: Madrid}
+                theme_choice:
+                  type: string
+                  enum: [random, luxury, cafe, wine_bar, bar, dessert]
+                budget: {type: integer, minimum: 30, example: 50}
+                exclude_ids:
+                  type: array
+                  description: Restaurants the guest has already visited ("only new places").
+                  items: {type: integer}
+      responses:
+        "200":
+          description: A matching restaurant
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [restaurant_id]
+                properties:
+                  restaurant_id: {type: integer, example: 27}
+        "400":
+          description: A field is missing or has the wrong type
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+        "404":
+          description: No restaurant fits the city, mood and budget
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+  /reservations:
+    post:
+      summary: Reserve a free table (1 to 20) at a restaurant for a dinner time
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [restaurant_id, dinner_at]
+              properties:
+                restaurant_id: {type: integer, example: 27}
+                dinner_at: {type: string, format: date-time, example: "2026-12-05T20:00:00"}
+      responses:
+        "201":
+          description: The table is reserved
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [reservation_id, table_number]
+                properties:
+                  reservation_id: {type: integer}
+                  table_number: {type: integer, minimum: 1, maximum: 20}
+        "400":
+          description: restaurant_id or dinner_at is missing or invalid
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+        "404":
+          description: Unknown restaurant
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+        "409":
+          description: Every table is taken at that time
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+  /restaurants/{restaurant_id}:
+    get:
+      summary: Everything a guest sees after the reveal
+      parameters:
+        - name: restaurant_id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        "200":
+          description: The restaurant
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Restaurant"}
+        "404":
+          description: Unknown restaurant
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+components:
+  schemas:
+    Theme:
+      type: string
+      enum: [luxury, cafe, wine_bar, bar, dessert]
+    Health:
+      type: object
+      required: [status, db, version]
+      properties:
+        status: {type: string, enum: [ok, error]}
+        db: {type: string, enum: [ok, unreachable]}
+        version: {type: string, description: Commit SHA of the running image, example: dev}
+    Error:
+      type: object
+      properties:
+        error: {type: string, example: no_match}
+        message: {type: string}
+    Restaurant:
+      type: object
+      required: [id, name, city, theme, min_budget, address, offer_type, discount_percent, menu]
+      properties:
+        id: {type: integer}
+        name: {type: string}
+        city: {type: string}
+        theme: {$ref: "#/components/schemas/Theme"}
+        min_budget: {type: integer}
+        address: {type: string}
+        offer_type: {type: string, enum: [regular, special, discount]}
+        discount_percent: {type: integer, minimum: 0, maximum: 100}
+        menu:
+          type: array
+          items:
+            type: object
+            required: [name, price]
+            properties:
+              name: {type: string}
+              price: {type: number}

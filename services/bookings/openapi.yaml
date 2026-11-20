@@ -1,0 +1,279 @@
+openapi: 3.0.3
+info:
+  title: Mystery Dinner Club - Bookings service
+  version: "1.0"
+  description: >-
+    Guest accounts, bookings, the reveal, history and ratings. Login returns a signed token that the
+    website sends as "Authorization: Bearer <token>". Choosing and describing restaurants is asked from
+    the Restaurants service; when it is down, new bookings get 503 and everything else keeps working.
+paths:
+  /health:
+    get:
+      summary: Whether the service can read and write its own database
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Health"}
+        "503":
+          description: The database cannot be reached
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Health"}
+  /signup:
+    post:
+      summary: Create an account and log in
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, password]
+              properties:
+                name: {type: string}
+                email: {type: string, format: email}
+                password: {type: string, minLength: 8}
+      responses:
+        "201":
+          description: Account created
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Login"}
+        "400":
+          description: One message per problem
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Errors"}
+        "409":
+          description: The email is already registered
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Errors"}
+  /login:
+    post:
+      summary: Log in with email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: {type: string}
+                password: {type: string}
+      responses:
+        "200":
+          description: Logged in
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Login"}
+        "401":
+          description: Wrong email or password
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Errors"}
+  /me:
+    get:
+      summary: The logged-in guest
+      security: [{bearerAuth: []}]
+      responses:
+        "200":
+          description: The guest
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/User"}
+        "401":
+          description: Missing or invalid token
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+  /bookings:
+    get:
+      summary: The guest's bookings, split into upcoming and past
+      security: [{bearerAuth: []}]
+      responses:
+        "200":
+          description: Bookings. Past ones include the restaurant when the Restaurants service answers.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [upcoming, past]
+                properties:
+                  upcoming:
+                    type: array
+                    items: {$ref: "#/components/schemas/Booking"}
+                  past:
+                    type: array
+                    items: {$ref: "#/components/schemas/Booking"}
+        "401":
+          description: Missing or invalid token
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+    post:
+      summary: Book a mystery dinner
+      security: [{bearerAuth: []}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [city, dinner_at, theme_choice, budget]
+              properties:
+                city: {type: string, example: Madrid}
+                dinner_at: {type: string, example: "2026-12-05T20:00", description: At least 3 days from now}
+                theme_choice: {type: string, enum: [random, luxury, cafe, wine_bar, bar, dessert]}
+                budget: {type: integer, minimum: 30}
+                party_size: {type: integer, minimum: 1, maximum: 8, default: 2}
+                only_new_places: {type: boolean, default: false}
+      responses:
+        "201":
+          description: Booked; the restaurant stays secret until 3 hours before dinner
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Booking"}
+        "400":
+          description: One message per broken rule
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Errors"}
+        "401":
+          description: Missing or invalid token
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+        "503":
+          description: The Restaurants service is unavailable, so no restaurant can be chosen
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+  /bookings/{booking_id}:
+    get:
+      summary: One of the guest's bookings, with the restaurant once revealed
+      security: [{bearerAuth: []}]
+      parameters:
+        - {name: booking_id, in: path, required: true, schema: {type: integer}}
+      responses:
+        "200":
+          description: The booking
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Booking"}
+        "401":
+          description: Missing or invalid token
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+        "404":
+          description: Not found, or not this guest's booking
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+  /bookings/{booking_id}/rating:
+    post:
+      summary: Rate a past dinner once (1 to 5 stars)
+      security: [{bearerAuth: []}]
+      parameters:
+        - {name: booking_id, in: path, required: true, schema: {type: integer}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [rating]
+              properties:
+                rating: {type: integer, minimum: 1, maximum: 5}
+                comment: {type: string, maxLength: 500}
+      responses:
+        "200":
+          description: Saved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {type: string, example: saved}
+        "400":
+          description: Too early, already rated, or not 1 to 5
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Errors"}
+        "401":
+          description: Missing or invalid token
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+        "404":
+          description: Not found, or not this guest's booking
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Error"}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Health:
+      type: object
+      required: [status, db, version]
+      properties:
+        status: {type: string, enum: [ok, error]}
+        db: {type: string, enum: [ok, unreachable]}
+        version: {type: string, example: dev}
+    Error:
+      type: object
+      properties:
+        error: {type: string, example: restaurants_unavailable}
+        message: {type: string}
+    Errors:
+      type: object
+      required: [errors]
+      properties:
+        errors:
+          type: array
+          items: {type: string}
+    User:
+      type: object
+      required: [id, name, email]
+      properties:
+        id: {type: integer}
+        name: {type: string}
+        email: {type: string}
+    Login:
+      type: object
+      required: [token, user]
+      properties:
+        token: {type: string, description: "Signed token, valid for one week"}
+        user: {$ref: "#/components/schemas/User"}
+    Booking:
+      type: object
+      required: [id, city, dinner_at, theme_choice, budget, party_size, table_number]
+      properties:
+        id: {type: integer}
+        user_id: {type: integer}
+        city: {type: string}
+        dinner_at: {type: string, format: date-time}
+        theme_choice: {type: string}
+        budget: {type: integer}
+        party_size: {type: integer}
+        table_number: {type: integer}
+        only_new_places: {type: boolean}
+        rating: {type: integer, nullable: true}
+        comment: {type: string, nullable: true}
+        created_at: {type: string, format: date-time}
+        reveal_at: {type: string, format: date-time}
+        revealed: {type: boolean}
+        is_past: {type: boolean}
+        restaurant_unavailable: {type: boolean, description: True when the restaurant could not be loaded}
+        restaurant:
+          nullable: true
+          description: Only after the reveal. Same shape as GET /restaurants/{restaurant_id} on the Restaurants service.
+          type: object
+          additionalProperties: true
