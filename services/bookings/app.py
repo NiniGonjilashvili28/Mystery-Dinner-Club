@@ -147,6 +147,7 @@ def create_app(test_config=None, restaurants=None):
     def new_booking():
         body = request.get_json(silent=True) or {}
         budget = body.get("budget")
+        party_size = body.get("party_size", 2)          # older clients don't send it: a table for two
         try:
             booking_id, errors = create_booking(
                 get_conn(), restaurants, g.user_id,
@@ -156,6 +157,7 @@ def create_app(test_config=None, restaurants=None):
                 budget=budget if isinstance(budget, int) else None,
                 only_new_places=bool(body.get("only_new_places")),
                 now=now(),
+                party_size=party_size if isinstance(party_size, int) else None,
             )
         except RestaurantsUnavailable as error:
             log.warning("Restaurants service unavailable: %s", str(error)[:200])

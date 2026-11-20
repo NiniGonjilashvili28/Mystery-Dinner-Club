@@ -20,7 +20,11 @@ def parse_dinner_time(text):
         return None
 
 
-def validate_booking(city, dinner_at, theme_choice, budget, now, valid_cities):
+MIN_PARTY_SIZE = 1
+MAX_PARTY_SIZE = 8
+
+
+def validate_booking(city, dinner_at, theme_choice, budget, now, valid_cities, party_size=2):
     """Check a new booking. Returns a list of error messages (empty list = all good)."""
     errors = []
     if city not in valid_cities:
@@ -33,6 +37,8 @@ def validate_booking(city, dinner_at, theme_choice, budget, now, valid_cities):
         errors.append("Please choose a valid date and time.")
     elif dinner_at - now < MIN_NOTICE:
         errors.append("Bookings must be made at least 3 days in advance.")
+    if party_size is None or not MIN_PARTY_SIZE <= party_size <= MAX_PARTY_SIZE:
+        errors.append(f"A table can be booked for {MIN_PARTY_SIZE} to {MAX_PARTY_SIZE} guests.")
     return errors
 
 
