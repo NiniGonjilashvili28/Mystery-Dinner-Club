@@ -109,8 +109,9 @@ jobs:
           };
           CONFIG
           cat ui/config.js
+          # no-cache: browsers keep a copy but check for a newer one, so a deploy shows up at once
           az storage blob upload-batch --account-name "$UI_STORAGE" --auth-mode key \
-            --destination '$web' --source ui --overwrite -o none
+            --destination '$web' --source ui --overwrite --content-cache-control "no-cache" -o none
 
       - name: Check /health on both services (allows for a cold start)
         timeout-minutes: 15
