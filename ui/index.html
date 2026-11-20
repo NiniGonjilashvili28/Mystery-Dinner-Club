@@ -4,30 +4,195 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mystery Dinner Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400&family=Jost:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="welcome">
+    <!-- Gold line drawings for the five moods, reused wherever a mood appears. -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <symbol id="icon-luxury" viewBox="0 0 48 48">
+                <path d="M24 3v9M24 12v20M8 20c2 9 30 9 32 0M16 24c2 6 14 6 16 0M8 20v-4M40 20v-4M16 24v-4M32 24v-4"/>
+                <path d="M8 10c-1.5 1.5-1.5 3 0 4 1.5-1 1.5-2.5 0-4zM40 10c-1.5 1.5-1.5 3 0 4 1.5-1 1.5-2.5 0-4zM16 14c-1.5 1.5-1.5 3 0 4 1.5-1 1.5-2.5 0-4zM32 14c-1.5 1.5-1.5 3 0 4 1.5-1 1.5-2.5 0-4z"/>
+                <path d="M21 36l3 7 3-7z"/>
+            </symbol>
+            <symbol id="icon-cafe" viewBox="0 0 48 48">
+                <path d="M10 20h24v10a10 10 0 0 1-10 10h-4a10 10 0 0 1-10-10z"/>
+                <path d="M34 23h3a4 4 0 0 1 0 8h-3M6 44h32"/>
+                <path d="M17 7c-2 3 2 5 0 8M23 5c-2 3 2 5 0 8M29 7c-2 3 2 5 0 8"/>
+            </symbol>
+            <symbol id="icon-wine_bar" viewBox="0 0 48 48">
+                <path d="M7 8h12c0 10-2 14-6 14s-6-4-6-14zM13 22v16M8 38h10M8 14h10"/>
+                <path d="M29 8h12c0 10-2 14-6 14s-6-4-6-14zM35 22v16M30 38h10M30 14h10"/>
+                <path d="M24 2v4M20 5l-2-2M28 5l2-2"/>
+            </symbol>
+            <symbol id="icon-bar" viewBox="0 0 48 48">
+                <path d="M8 8h32L24 26zM24 26v14M16 42h16"/>
+                <circle cx="29" cy="14" r="2.5"/>
+                <path d="M31 12l7-8"/>
+            </symbol>
+            <symbol id="icon-dessert" viewBox="0 0 48 48">
+                <path d="M6 40h36V26L6 34zM6 37h36"/>
+                <circle cx="31" cy="21" r="3"/>
+                <path d="M31 18c0-3 2-5 4-6"/>
+            </symbol>
+        </defs>
+    </svg>
     <header>
-        <p class="logo"><a href="index.html">🍽️ Mystery Dinner Club</a></p>
+        <p class="logo"><a href="index.html">Mystery Dinner Club</a></p>
         <nav id="nav"></nav>
     </header>
     <p class="flash" id="flash" hidden></p>
     <ul class="errors" id="errors" hidden></ul>
-    <main>
-        <h2>Dinner is booked. Where? That's the mystery.</h2>
-        <p>Choose a city, a date, a theme and a budget. We reserve a table at one of our partner
-           restaurants and keep it secret until 3 hours before your dinner.</p>
-        <a class="button" id="start" href="signup.html">Sign up to book your first dinner</a>
-    </main>
+
+    <!-- Hero: the invitation. Breaking the seal shows what a booking looks like. -->
+    <div class="hero-photo">
+    <section class="hero">
+        <div class="hero-text">
+            <h1>You choose the night.<br>We choose the table.</h1>
+            <p class="lede">Pick a city, a date and the kind of evening you want. We reserve a table at one
+               of our partner restaurants and keep its name sealed until three hours before dinner.</p>
+            <a class="button book-link" href="signup.html">Book a mystery dinner</a>
+        </div>
+
+        <div class="invite" id="invite">
+            <div class="letter" aria-live="polite">
+                <p class="letter-small">Your table is reserved</p>
+                <p class="letter-big">Saturday, 21:00</p>
+                <p class="letter-small">Madrid, wine bar, up to 60€</p>
+                <hr>
+                <p class="letter-reveal">The restaurant will be revealed<br>at 18:00 on the day.</p>
+            </div>
+            <div class="envelope" aria-hidden="true">
+                <div class="flap"></div>
+            </div>
+            <button class="seal" id="seal" type="button" aria-controls="invite">Break the seal</button>
+        </div>
+    </section>
+    </div>
+
+    <!-- How it works: a real sequence, so it is numbered. -->
+    <section class="steps">
+        <h2>How an evening unfolds</h2>
+        <ol>
+            <li><strong>Choose a city and a night</strong>
+                <span>At least three days ahead, so the restaurant can prepare your table.</span></li>
+            <li><strong>Pick a mood and a budget</strong>
+                <span>Luxury, café, wine bar, bar or dessert, or leave it to chance. From 30€ a head.</span></li>
+            <li><strong>We reserve, and keep it secret</strong>
+                <span>The restaurant knows you're coming. You don't know where yet.</span></li>
+            <li><strong>Three hours before, the seal breaks</strong>
+                <span>Name, address, your table number, and any special menu or discount.</span></li>
+            <li><strong>Dine, then rate it</strong>
+                <span>Your visits build a history, so next time we can send you somewhere new.</span></li>
+        </ol>
+    </section>
+
+    <!-- Moods: one photo per theme. Choosing one opens the booking form with that mood selected. -->
+    <section class="moods">
+        <h2>Choose your mood</h2>
+        <div class="mood-cards">
+            <a class="mood-card" data-theme="luxury" href="signup.html" style="--photo: url(images/luxury.jpg)">
+                <svg class="icon"><use href="#icon-luxury"/></svg>
+                <strong>Luxury</strong>
+                <span>White tablecloths, a tasting menu and candlelight.</span>
+            </a>
+            <a class="mood-card" data-theme="cafe" href="signup.html" style="--photo: url(images/cafe.jpg)">
+                <svg class="icon"><use href="#icon-cafe"/></svg>
+                <strong>Café</strong>
+                <span>Small, warm and unhurried. Made for long conversations.</span>
+            </a>
+            <a class="mood-card" data-theme="wine_bar" href="signup.html" style="--photo: url(images/wine_bar.jpg)">
+                <svg class="icon"><use href="#icon-wine_bar"/></svg>
+                <strong>Wine bar</strong>
+                <span>Small plates and a glass of something you've never tried.</span>
+            </a>
+            <a class="mood-card" data-theme="bar" href="signup.html" style="--photo: url(images/bar.jpg)">
+                <svg class="icon"><use href="#icon-bar"/></svg>
+                <strong>Bar</strong>
+                <span>Cocktails, low lights and a kitchen that stays open late.</span>
+            </a>
+            <a class="mood-card" data-theme="dessert" href="signup.html" style="--photo: url(images/dessert.jpg)">
+                <svg class="icon"><use href="#icon-dessert"/></svg>
+                <strong>Dessert</strong>
+                <span>Skip straight to the best part of the meal.</span>
+            </a>
+        </div>
+        <p class="moods-note">Can't decide? Choose "random" when you book and let us pick the mood too.</p>
+    </section>
+
+    <!-- Cities: live numbers from the Restaurants service. -->
+    <section class="cities">
+        <h2>Where can we send you?</h2>
+        <p class="cities-intro">Choose a city to see how many partner restaurants are waiting there for each mood.
+           The names stay secret, of course.</p>
+        <div class="city-picker" id="city-picker" role="tablist" aria-label="Cities">
+            <p class="muted">Loading our cities…</p>
+        </div>
+        <div class="city-moods" id="city-moods" aria-live="polite"></div>
+    </section>
+
+    <section class="closing">
+        <p class="closing-line">Somewhere in your city, a table is waiting.</p>
+        <a class="button book-link" href="signup.html">Book a mystery dinner</a>
+        <p class="fine-print">You pay at the restaurant. Your budget only helps us choose a place in your price range.</p>
+    </section>
+
+    <footer class="credits">Photos from Unsplash by Yimeng Zhao, Zane Persaud, Danny Lines, Paul Griffin, Qui Nguyen and Ruben Mavarez.</footer>
+
     <script src="config.js"></script>
     <script src="app.js"></script>
     <script>
-        // Logged-in guests go straight to booking.
+        // Logged-in guests go straight to the booking form.
         if (getToken()) {
-            const start = document.getElementById("start");
-            start.href = "book.html";
-            start.textContent = "Book a mystery dinner";
+            document.querySelectorAll(".book-link").forEach((link) => { link.href = "book.html"; });
+            document.querySelectorAll(".mood-card").forEach((card) => {
+                card.href = "book.html?theme=" + card.dataset.theme;
+            });
         }
+
+        // The seal: opening the envelope shows what a booking looks like before the reveal.
+        const invite = document.getElementById("invite");
+        const seal = document.getElementById("seal");
+        seal.addEventListener("click", () => {
+            const opened = invite.classList.toggle("opened");
+            seal.textContent = opened ? "Seal it again" : "Break the seal";
+        });
+
+        // Cities: ask the Restaurants service, then show the moods for the chosen city.
+        const MOOD_NAMES = { luxury: "Luxury", cafe: "Café", wine_bar: "Wine bar", bar: "Bar", dessert: "Dessert" };
+
+        function showCity(row, themes) {
+            document.querySelectorAll(".city-picker button").forEach((button) => {
+                button.setAttribute("aria-selected", button.dataset.city === row.city ? "true" : "false");
+            });
+            document.getElementById("city-moods").innerHTML = themes.map((theme) =>
+                "<div class=\"mood\"><svg class=\"icon\"><use href=\"#icon-" + theme + "\"/></svg>" +
+                "<span class=\"mood-count\">" + row.theme_counts[theme] +
+                "</span><span class=\"mood-name\">" + escapeHtml(MOOD_NAMES[theme] || themeName(theme)) + "</span></div>"
+            ).join("");
+        }
+
+        async function loadCities() {
+            const picker = document.getElementById("city-picker");
+            const result = await callService("restaurants", "/cities");
+            if (!result.ok) {
+                picker.innerHTML = "<p class=\"muted\">" + escapeHtml(errorMessages(result)[0]) + "</p>";
+                return;
+            }
+            const { cities, themes } = result.body;
+            picker.innerHTML = cities.map((row) =>
+                "<button type=\"button\" role=\"tab\" data-city=\"" + escapeHtml(row.city) + "\">" +
+                escapeHtml(row.city) + "</button>").join("");
+            picker.querySelectorAll("button").forEach((button, index) => {
+                button.addEventListener("click", () => showCity(cities[index], themes));
+            });
+            const madrid = cities.find((row) => row.city === "Madrid") || cities[0];
+            if (madrid) showCity(madrid, themes);
+        }
+        loadCities();
     </script>
 </body>
 </html>

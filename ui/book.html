@@ -4,11 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mystery Dinner Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400&family=Jost:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <p class="logo"><a href="index.html">🍽️ Mystery Dinner Club</a></p>
+        <p class="logo"><a href="index.html">Mystery Dinner Club</a></p>
         <nav id="nav"></nav>
     </header>
     <p class="flash" id="flash" hidden></p>
@@ -52,6 +55,11 @@
                 .map((row) => "<option>" + escapeHtml(row.city) + "</option>").join("");
             document.getElementById("theme").innerHTML = ["random"].concat(result.body.themes)
                 .map((t) => "<option value=\"" + t + "\">" + escapeHtml(themeName(t)) + "</option>").join("");
+            // Coming from a mood on the welcome page: that mood is already chosen.
+            const chosen = new URLSearchParams(window.location.search).get("theme");
+            if (chosen && ["random"].concat(result.body.themes).includes(chosen)) {
+                document.getElementById("theme").value = chosen;
+            }
         }
         loadChoices();
 
