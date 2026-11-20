@@ -31,9 +31,9 @@
 
             document.getElementById("upcoming").innerHTML = upcoming.length === 0
                 ? "<p>Nothing booked yet. <a href=\"book.html\">Book a dinner</a></p>"
-                : "<table><tr><th>When</th><th>City</th><th>Theme</th><th></th></tr>" +
+                : "<table><tr><th>When</th><th>City</th><th>Guests</th><th>Theme</th><th></th></tr>" +
                   upcoming.map((b) => "<tr><td>" + formatDate(b.dinner_at, false) + "</td><td>" +
-                      escapeHtml(b.city) + "</td><td>" + escapeHtml(themeName(b.theme_choice)) +
+                      escapeHtml(b.city) + "</td><td>" + b.party_size + "</td><td>" + escapeHtml(themeName(b.theme_choice)) +
                       "</td><td><a href=\"booking.html?id=" + b.id + "\">Open</a></td></tr>").join("") +
                   "</table>";
 
