@@ -21,6 +21,12 @@
                 <input name="dinner_at" type="datetime-local" required>
             </label>
             <label>Theme <select name="theme_choice" id="theme"></select></label>
+            <label>Number of guests
+                <select name="party_size">
+                    <option>1</option><option selected>2</option><option>3</option><option>4</option>
+                    <option>5</option><option>6</option><option>7</option><option>8</option>
+                </select>
+            </label>
             <label>Budget in € (minimum 30)
                 <input name="budget" type="number" min="30" value="50" required>
             </label>
@@ -62,6 +68,7 @@
                     theme_choice: form.theme_choice.value,
                     budget: parseInt(form.budget.value, 10),
                     only_new_places: form.only_new_places.checked,
+                    party_size: parseInt(form.party_size.value, 10),
                 },
             });
             button.disabled = false;

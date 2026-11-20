@@ -46,6 +46,16 @@ def test_book_and_see_the_secret(client):
     assert len(client.get("/bookings", headers=headers).get_json()["upcoming"]) == 1
 
 
+def test_party_size_is_saved_and_checked(client):
+    headers = sign_up(client)
+    booking = {"city": "Madrid", "dinner_at": in_days(5), "theme_choice": "bar", "budget": 50}
+    saved = client.post("/bookings", headers=headers, json={**booking, "party_size": 4})
+    assert saved.status_code == 201 and saved.get_json()["party_size"] == 4
+    too_many = client.post("/bookings", headers=headers, json={**booking, "party_size": 12})
+    assert too_many.status_code == 400
+    assert too_many.get_json()["errors"] == ["A table can be booked for 1 to 8 guests."]
+
+
 def test_booking_errors_are_returned(client):
     headers = sign_up(client)
     response = client.post("/bookings", headers=headers, json={"city": "Madrid", "dinner_at": in_days(1),

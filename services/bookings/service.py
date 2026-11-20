@@ -28,13 +28,14 @@ def list_bookings(conn, user_id):
     return query(conn, "SELECT * FROM bookings WHERE user_id = %s ORDER BY dinner_at DESC", (user_id,))
 
 
-def create_booking(conn, restaurants, user_id, city, dinner_text, theme_choice, budget, only_new_places, now):
+def create_booking(conn, restaurants, user_id, city, dinner_text, theme_choice, budget, only_new_places, now,
+                   party_size=2):
     """Check and save a new booking. Returns (booking_id, errors); booking_id is None if it failed.
 
     Raises RestaurantsUnavailable if the Restaurants service cannot be reached.
     """
     dinner_at = parse_dinner_time(dinner_text)
-    errors = validate_booking(city, dinner_at, theme_choice, budget, now, restaurants.list_cities())
+    errors = validate_booking(city, dinner_at, theme_choice, budget, now, restaurants.list_cities(), party_size)
     if errors:
         return None, errors
 
@@ -53,10 +54,10 @@ def create_booking(conn, restaurants, user_id, city, dinner_text, theme_choice, 
     cursor = conn.cursor()
     cursor.execute(
         "INSERT INTO bookings (user_id, restaurant_id, city, dinner_at, theme_choice, budget, "
-        "table_number, only_new_places, created_at) OUTPUT INSERTED.id "
-        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+        "table_number, only_new_places, created_at, party_size) OUTPUT INSERTED.id "
+        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
         (user_id, restaurant_id, city, dinner_at, theme_choice, budget,
-         table_number, bool(only_new_places), now),
+         table_number, bool(only_new_places), now, party_size),
     )
     booking_id = cursor.fetchone()[0]
     conn.commit()

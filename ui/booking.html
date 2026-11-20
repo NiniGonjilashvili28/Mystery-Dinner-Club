@@ -68,7 +68,8 @@
             const b = result.body;
             document.getElementById("booking").innerHTML =
                 "<h2>Your dinner in " + escapeHtml(b.city) + "</h2><p>" + formatDate(b.dinner_at) +
-                " · theme: " + escapeHtml(themeName(b.theme_choice)) + " · budget: " + b.budget + "€</p>" +
+                " · " + b.party_size + " guests · theme: " + escapeHtml(themeName(b.theme_choice)) +
+                " · budget: " + b.budget + "€</p>" +
                 restaurantHtml(b);
 
             // Ratings are only possible after the dinner, and only once.

@@ -45,6 +45,13 @@ def test_create_booking_when_the_restaurant_is_full_gives_a_message(conn, user_i
     assert list_bookings(conn, user_id) == []
 
 
+def test_create_booking_saves_the_party_size_and_defaults_to_two(conn, fake_restaurants, user_id):
+    book(conn, fake_restaurants, user_id, party_size=5)
+    book(conn, fake_restaurants, user_id, dinner_text="2026-10-21T20:00")     # no party size given
+    sizes = sorted(b["party_size"] for b in list_bookings(conn, user_id))
+    assert sizes == [2, 5]
+
+
 def test_create_booking_too_soon_saves_nothing(conn, fake_restaurants, user_id):
     booking_id, errors = book(conn, fake_restaurants, user_id, dinner_text="2026-10-02T20:00")
     assert booking_id is None

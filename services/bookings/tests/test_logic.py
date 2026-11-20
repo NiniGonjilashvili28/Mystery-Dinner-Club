@@ -85,6 +85,16 @@ def test_invalid_date_is_refused():
     assert valid_booking(dinner_at=None) == ["Please choose a valid date and time."]
 
 
+def test_party_size_from_1_to_8_is_allowed():
+    assert valid_booking(party_size=1) == []
+    assert valid_booking(party_size=8) == []
+
+
+def test_party_size_outside_1_to_8_is_refused():
+    for size in (0, 9, None):
+        assert valid_booking(party_size=size) == ["A table can be booked for 1 to 8 guests."]
+
+
 def test_several_problems_give_several_errors():
     assert len(valid_booking(city="Atlantis", budget=10)) == 2
 
