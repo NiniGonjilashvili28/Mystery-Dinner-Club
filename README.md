@@ -50,6 +50,10 @@ cp .env.example .env          # then put your own passwords and secret key in .e
 docker compose up --build
 ```
 
+Ports 1433, 8001, 8002 and 8080 must be free. If `docker compose ps -a` shows containers stuck in "Created", another
+container (for example a different project's SQL Server) is using one of these ports: stop it and run
+`docker compose up` again.
+
 Open http://localhost:8080. Compose starts SQL Server, runs `db/init.sql` once (`db-init`), then both
 services (each applies its migrations and Restaurants loads its 150 sample restaurants) and nginx for
 the website. `.env` is ignored by Git, so real passwords never reach the repository. Data is kept in
