@@ -1,0 +1,6 @@
+# Lint rules for both services (ruff finds this file from any folder below it).
+line-length = 120
+
+[lint]
+# E and W: pycodestyle errors and warnings (style), F: pyflakes (unused imports, undefined names).
+select = ["E", "F", "W"]
